@@ -4,6 +4,8 @@ import { ReactComponent as Logo } from "../../siren-logo.svg";
 
 import { fetchCategoriesStart } from "../../redux/category/category.actions";
 
+import "./header.styles.scss";
+
 class Header extends React.Component {
   componentDidMount() {
     const { fetchCategoriesStart } = this.props;
@@ -11,18 +13,19 @@ class Header extends React.Component {
   }
   render() {
     const { categories } = this.props;
-
     return (
       <div className="header">
         <div className="header__logo-box">
           <Logo />
         </div>
         <div className="header__menu-box">
-          <ul className="menu-box--list">
+          <ul className="header__menu">
             {categories
               ? categories.map(category => (
-                  <li key={category}>
-                    <a href={`${category}`}>{category}</a>
+                  <li className="header__menu--list" key={category}>
+                    <a className="header__menu--link" href={`${category}`}>
+                      {category}
+                    </a>
                   </li>
                 ))
               : null}
