@@ -1,22 +1,47 @@
 import React from "react";
+import { connect } from "react-redux";
 import { ReactComponent as Logo } from "../../siren-logo.svg";
 
-const Header = () => (
-  <div className="header">
-    <div className="header__logo-box">
-      <Logo />
-    </div>
-    <div className="header__menu-box">
-      <ul className="menu-box--list">
-        <li>
-          <a href="/">Fashion</a>
-        </li>
-        <li>
-          <a href="/">Entertainment</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-);
+import { fetchCategoriesStart } from "../../redux/category/category.actions";
 
-export default Header;
+class Header extends React.Component {
+  componentDidMount() {
+    const { fetchCategoriesStart } = this.props;
+    fetchCategoriesStart();
+  }
+  render() {
+    const { categories } = this.props;
+
+    return (
+      <div className="header">
+        <div className="header__logo-box">
+          <Logo />
+        </div>
+        <div className="header__menu-box">
+          <ul className="menu-box--list">
+            {categories
+              ? categories.map(category => (
+                  <li key={category}>
+                    <a href={`${category}`}>{category}</a>
+                  </li>
+                ))
+              : null}
+          </ul>
+        </div>
+      </div>
+    );
+  }
+}
+
+const mapStateToProps = ({ category }) => ({
+  categories: category.categories
+});
+
+const mapDispatchToProps = dispatch => ({
+  fetchCategoriesStart: () => dispatch(fetchCategoriesStart())
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Header);
