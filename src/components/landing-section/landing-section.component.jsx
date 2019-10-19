@@ -1,64 +1,78 @@
 import React from "react";
+import { connect } from "react-redux";
+
 import { Carousel } from "antd";
 import LandingSlider from "../landing-slider/landing-slider.component";
 import LandingThumb from "../landing-thumb/landing-thumb.component";
 
+import { fetchTopHeadlinesStart } from "../../redux/headline/headline.action";
+
 import "antd/dist/antd.css";
 import "./landing-section.styles.scss";
 
-const LandingSection = () => {
-  return (
-    <div className="landing-section">
-      <div className="landing-section__main-slider">
-        <Carousel
-          speed={2500}
-          autoplay
-          autoplaySpeed={5000}
-          dotPosition={"right"}
-          dots={true}
-          pauseOnFocus
-          draggable={true}
-        >
-          <LandingSlider
-            index={"01"}
-            title={"Arizona Ultimate Adventure – Grand Canyon & Beyond"}
-            imageUrl={
-              "https://www.newsbtc.com/wp-content/uploads/2019/10/shutterstock_683030524-1200x780.jpg"
-            }
-            category={"General"}
-            date={"October 18 2019"}
-          />
-          <LandingSlider
-            index={"02"}
-            title={"Arizona Ultimate Adventure – Grand Canyon & Beyond"}
-            imageUrl={
-              "https://www.newsbtc.com/wp-content/uploads/2019/10/shutterstock_683030524-1200x780.jpg"
-            }
-            category={"General"}
-            date={"October 18 2019"}
-          />
-        </Carousel>
-      </div>
-      <div className="landing-section__seconday-section">
-        <LandingThumb
-          title={"The SoundCloud You Loved Is Doomed"}
-          imageUrl={
-            "https://www.newsbtc.com/wp-content/uploads/2019/10/shutterstock_683030524-1200x780.jpg"
-          }
-          category={"General"}
-          date={"October 18 2019"}
-        />
-        <LandingThumb
-          title={"OneWeb vouches for high reliability of its deorbit system"}
-          imageUrl={
-            "https://www.newsbtc.com/wp-content/uploads/2019/10/shutterstock_683030524-1200x780.jpg"
-          }
-          category={"General"}
-          date={"October 18 2019"}
-        />
-      </div>
-    </div>
-  );
-};
+class LandingSection extends React.Component {
+  componentDidMount() {
+    const { fetchTopHeadlinesStart } = this.props;
+    fetchTopHeadlinesStart();
+  }
 
-export default LandingSection;
+  render() {
+    const { topHeadlines } = this.props;
+    return (
+      <div className="landing-section">
+        <div className="landing-section__main-slider">
+          <Carousel
+            speed={2500}
+            autoplay
+            autoplaySpeed={5000}
+            dotPosition={"right"}
+            dots={true}
+            pauseOnFocus
+            draggable={true}
+          >
+            {topHeadlines
+              ? topHeadlines
+                  .filter((item, idx) => idx < 4)
+                  .map((item, index) => (
+                    <LandingSlider
+                      index={index + 1}
+                      title={item.title}
+                      imageUrl={item.urlToImage}
+                      category={item.source.name}
+                      date={item.publishedAt}
+                    />
+                  ))
+              : null}
+          </Carousel>
+        </div>
+        <div className="landing-section__seconday-section">
+          {topHeadlines
+            ? topHeadlines
+                .filter((item, idx) => idx >= 4)
+                .map(headline => (
+                  <LandingThumb
+                    title={headline.title}
+                    imageUrl={headline.urlToImage}
+                    category={headline.source.name}
+                    date={headline.publishedAt}
+                  />
+                ))
+            : null}
+        </div>
+      </div>
+    );
+  }
+}
+
+const mapStateToProps = ({ headline }) => ({
+  topHeadlines: headline.topHeadlines
+});
+
+const maptDispatchToProps = dispatch => ({
+  fetchTopHeadlinesStart: () => dispatch(fetchTopHeadlinesStart())
+});
+
+export default connect(
+  mapStateToProps,
+  maptDispatchToProps
+)(LandingSection);

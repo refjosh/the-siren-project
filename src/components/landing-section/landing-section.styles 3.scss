@@ -1,29 +1,25 @@
 .landing-section {
-  display: inline-flex;
+  //   position: relative;
   border-top: 0.5px solid rgba(128, 128, 128, 0.384);
   padding-top: 2rem;
   margin: 0 auto;
-  width: 70vw;
-  height: 100%;
+  width: 80vw;
+  height: 40vh;
+  display: inline-block;
 
   &__main-slider {
-    width: 65%;
+    width: 67.6%;
     height: 100%;
-    margin: auto;
   }
   &__seconday-section {
-    width: 100 - 65%;
-    height: 100%;
-    padding: 1rem;
-    font-size: 0.5rem;
+    width: 100 - 67.6%;
   }
 }
 
 // CAROUSEL STYLING
 .ant-carousel .slick-slide {
-  height: 100%;
-  margin-bottom: 0;
-  overflow: hidden;
+  min-height: 10vh;
+  height: 160px;
 }
 .ant-carousel .slick-slide {
   text-align: center;
