@@ -1,5 +1,6 @@
 import React from "react";
 import { Carousel } from "antd";
+import LandingSlider from "../landing-slider/landing-slider.component";
 import LandingThumb from "../landing-thumb/landing-thumb.component";
 
 import "antd/dist/antd.css";
@@ -18,7 +19,7 @@ const LandingSection = () => {
           pauseOnFocus
           draggable={true}
         >
-          <LandingThumb
+          <LandingSlider
             index={"01"}
             title={"Arizona Ultimate Adventure – Grand Canyon & Beyond"}
             imageUrl={
@@ -27,7 +28,7 @@ const LandingSection = () => {
             category={"General"}
             date={"October 18 2019"}
           />
-          <LandingThumb
+          <LandingSlider
             index={"02"}
             title={"Arizona Ultimate Adventure – Grand Canyon & Beyond"}
             imageUrl={
@@ -38,7 +39,24 @@ const LandingSection = () => {
           />
         </Carousel>
       </div>
-      <div className="landing-section__seconday-section"></div>
+      <div className="landing-section__seconday-section">
+        <LandingThumb
+          title={"The SoundCloud You Loved Is Doomed"}
+          imageUrl={
+            "https://www.newsbtc.com/wp-content/uploads/2019/10/shutterstock_683030524-1200x780.jpg"
+          }
+          category={"General"}
+          date={"October 18 2019"}
+        />
+        <LandingThumb
+          title={"OneWeb vouches for high reliability of its deorbit system"}
+          imageUrl={
+            "https://www.newsbtc.com/wp-content/uploads/2019/10/shutterstock_683030524-1200x780.jpg"
+          }
+          category={"General"}
+          date={"October 18 2019"}
+        />
+      </div>
     </div>
   );
 };
