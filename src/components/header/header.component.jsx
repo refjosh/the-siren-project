@@ -10,7 +10,7 @@ const Header = ({ categories }) => (
     <div className="header__logo-box">
       <Logo />
     </div>
-    <CategoryMenu />
+    <CategoryMenu isHeader />
   </header>
 );
 

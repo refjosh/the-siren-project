@@ -1,0 +1,43 @@
+.footer {
+  padding: 5rem 0 1rem;
+  background-color: #393939;
+
+  &__credits {
+    margin: 3rem 0;
+    color: #dcdcdc;
+    span {
+      &:not(:last-child) {
+        padding-right: 1rem;
+        margin-right: 1rem;
+        border-right: 1px solid #fff;
+      }
+    }
+    a {
+      color: #dcdcdc;
+    }
+  }
+  &__copyright {
+    color: #a7a7a7;
+    border-top: 1px solid #4a4a4a;
+    padding-top: 1.5rem;
+    a {
+      color: #a7a7a7;
+    }
+  }
+  &__credits,
+  &__copyright {
+    a {
+      text-decoration: none;
+      margin-left: 0.5rem;
+      border-bottom: 1px solid #f78181;
+      transition: all 0.5s;
+
+      &:hover,
+      &:active {
+        cursor: pointer;
+        color: #f78181;
+        padding-bottom: 0.2rem;
+      }
+    }
+  }
+}

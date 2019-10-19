@@ -13,15 +13,24 @@
     }
     &--link {
       text-decoration: none;
-      color: #404040;
+      transition: all 0.5s;
 
       &:hover,
       &:active {
         cursor: pointer;
         color: #f78181;
         padding-bottom: 1rem;
-        border-bottom: 2px solid #f78181;
       }
     }
   }
+}
+.isHeader {
+  color: #404040;
+  &:hover,
+  &active {
+    border-bottom: 2px solid #f78181;
+  }
+}
+.isFooter {
+  color: #fff;
 }
