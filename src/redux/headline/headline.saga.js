@@ -34,11 +34,10 @@ export function* fetchTopHeadlines() {
     if (result.status === "ok") {
       const articles = yield result.articles;
       yield shuffleHeadlines(articles);
-    } else {
-      yield put(fetchTopHeadlinesFailure("Fetch was unsuccessful"));
     }
   } catch (error) {
     yield put(fetchTopHeadlinesFailure(error));
+    return;
   }
 }
 

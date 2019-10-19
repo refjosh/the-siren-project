@@ -8,12 +8,11 @@ import "./header.styles.scss";
 
 class Header extends React.Component {
   componentDidMount() {
-    const { fetchCategoriesStart } = this.props;
-    fetchCategoriesStart();
+    const { fetchCategories } = this.props;
+    fetchCategories();
   }
   render() {
     const { categories } = this.props;
-    // console.log(categories);
     return (
       <div className="header">
         <div className="header__logo-box">
@@ -38,11 +37,11 @@ class Header extends React.Component {
 }
 
 const mapStateToProps = ({ category }) => ({
-  categories: category.state.categories
+  categories: category.categories
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchCategoriesStart: () => dispatch(fetchCategoriesStart())
+  fetchCategories: () => dispatch(fetchCategoriesStart())
 });
 
 export default connect(

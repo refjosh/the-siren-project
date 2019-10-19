@@ -8,12 +8,11 @@ import {
 } from "./category.actions";
 
 export function* fetchCategories() {
-  if (CATEGORIES) {
-    yield put(fetchCategoriesSuccess(CATEGORIES));
-    return;
+  const categories = CATEGORIES;
+  if (categories) {
+    yield put(fetchCategoriesSuccess(categories));
   } else {
     yield put(fetchCategoriesFailure("There are no categories"));
-    return;
   }
 }
 
