@@ -3,6 +3,7 @@ import { all, call, put, takeLatest } from "redux-saga/effects";
 import headlineTypes from "./headline.types";
 import {
   fetchTopHeadlinesSuccess,
+  fetchShuffledHeadlinesSuccess,
   fetchTopHeadlinesFailure
 } from "./headline.action";
 
@@ -22,7 +23,7 @@ export function* shuffleHeadlines(headlines) {
       filteredHeadlines.push(headlines[rand1]);
     }
   }
-  yield put(fetchTopHeadlinesSuccess(filteredHeadlines));
+  yield put(fetchShuffledHeadlinesSuccess(filteredHeadlines));
 }
 
 export function* fetchTopHeadlines() {
@@ -34,6 +35,7 @@ export function* fetchTopHeadlines() {
     if (result.status === "ok") {
       const articles = yield result.articles;
       yield shuffleHeadlines(articles);
+      yield put(fetchTopHeadlinesSuccess(articles));
     }
   } catch (error) {
     yield put(fetchTopHeadlinesFailure(error));

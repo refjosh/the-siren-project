@@ -67,7 +67,7 @@ class LandingSection extends React.Component {
 }
 
 const mapStateToProps = ({ headline }) => ({
-  topHeadlines: headline.topHeadlines
+  topHeadlines: headline.shuffledHeadlines
 });
 
 const maptDispatchToProps = dispatch => ({

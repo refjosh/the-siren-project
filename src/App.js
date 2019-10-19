@@ -4,7 +4,6 @@ import { Switch, Route } from "react-router-dom";
 import HomePage from "./pages/homepage/homepage.component";
 import Header from "./components/header/header.component";
 import Footer from "./components/footer/footer.component";
-import TopHeadlines from "./components/top-headlines/top-headlines.component";
 
 import { Row, Col } from "antd";
 import "antd/dist/antd.css";
@@ -24,9 +23,8 @@ class App extends React.Component {
         <Header />
         <Row>
           <Col span={16} offset={4}>
-            <TopHeadlines />
             <Switch>
-              {/* <Route exact path="/" component={HomePage} /> */}
+              <Route exact path="/" component={HomePage} />
             </Switch>
           </Col>
         </Row>

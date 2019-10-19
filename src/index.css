@@ -30,3 +30,10 @@ h2 {
   padding-top: 20px;
   border-bottom: 2px solid #f78181;
 }
+
+h3:hover,
+h3:active {
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: #f78181;
+}

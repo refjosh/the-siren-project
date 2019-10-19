@@ -6,37 +6,38 @@ import { Row, Col } from "antd";
 
 import "./top-headlines.styles.scss";
 
-const TopHeadlines = () => (
+const TopHeadlines = ({ topHeadlines }) => (
   <section className="top-headlines-section">
     <div className="top-headlines-section__head">
       <h2 className="short--underline">Top Headlines</h2>
     </div>
     <div className="top-headlines-section__body">
       <Row gutter={[8, 16]} className="top-headlines-section__body--row">
-        <Col
-          className="top-headlines-section__body--column"
-          xs={24}
-          sm={24}
-          md={24}
-          lg={8}
-          xl={8}
-        >
-          <h3 className="body__header">
-            After layoffs, GoPro's business appears to be back on track
-          </h3>
-          <p className="body__content">
-            GoPro announced its second quarter earnings today, and while it’s
-            still losing money, things are finally trending in a slightly better
-            direction for the camera company. GoPro brought in $297 million in
-            revenue this past quarter, a 34 percent increase over the second
-            quarter of 2016 — which was one of the company’s worst ever.
-          </p>
-          <div className="body__footer">
-            <span>Tech</span>
-            <span className="solidus">&#47;</span>
-            <span>today at 11:54</span>
-          </div>
-        </Col>
+        {topHeadlines
+          ? topHeadlines
+              .filter((item, idx) => idx < 3)
+              .map((headline, index) => (
+                <Col
+                  key={index + 1}
+                  className="top-headlines-section__body--column"
+                  xs={24}
+                  sm={24}
+                  md={24}
+                  lg={8}
+                  xl={8}
+                >
+                  <div className="body">
+                    <h3 className="body__header">{headline.title}</h3>
+                    <p className="body__content">{headline.description}</p>
+                    <div className="body__footer">
+                      <span>{headline.source.name}</span>
+                      <span className="solidus">&#47;</span>
+                      <span>{headline.publishedAt}</span>
+                    </div>
+                  </div>
+                </Col>
+              ))
+          : null}
       </Row>
     </div>
     <div className="top-headlines-section__footer">
@@ -46,4 +47,8 @@ const TopHeadlines = () => (
   </section>
 );
 
-export default TopHeadlines;
+const mapStateToProps = ({ headline }) => ({
+  topHeadlines: headline.topHeadlines
+});
+
+export default connect(mapStateToProps)(TopHeadlines);

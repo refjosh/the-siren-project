@@ -4,9 +4,14 @@ export const fetchTopHeadlinesStart = () => ({
   type: headlineTypes.FETCH_TOP_HEADLINES_START
 });
 
-export const fetchTopHeadlinesSuccess = news => ({
+export const fetchTopHeadlinesSuccess = allHeadines => ({
   type: headlineTypes.FETCH_TOP_HEADLINES_SUCCESS,
-  payload: news
+  payload: allHeadines
+});
+
+export const fetchShuffledHeadlinesSuccess = shuffled => ({
+  type: headlineTypes.FETCH_SHUFFLED_HEADLINES_SUCCESS,
+  payload: shuffled
 });
 
 export const fetchTopHeadlinesFailure = error => ({
