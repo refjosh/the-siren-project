@@ -13,3 +13,20 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.short--underline,
+h2 {
+  font-size: 1.8rem;
+  color: #404040;
+  text-transform: capitalize;
+  font-weight: 600;
+  padding-bottom: 1rem;
+}
+.short--underline:after {
+  content: "";
+  display: block;
+  margin: 0 0 auto;
+  width: 4.2rem;
+  padding-top: 20px;
+  border-bottom: 2px solid #f78181;
+}

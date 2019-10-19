@@ -1,0 +1,53 @@
+.top-headlines-section {
+  text-align: left;
+  margin: 3rem 1rem;
+
+  &__body {
+    border-top: 1px solid #f7f7f7;
+    border-bottom: 1px solid #f7f7f7;
+    margin-bottom: 1.5rem;
+    &--column {
+      margin: 2.5rem auto;
+    }
+    .body {
+      &__header {
+        font-size: 1.5rem;
+        line-height: 1.3;
+        margin-bottom: 2rem;
+        color: #404040;
+      }
+      &__content {
+        margin-bottom: 3rem;
+        line-height: 1.43;
+        color: #9a9a9a;
+      }
+      &__footer {
+        text-transform: uppercase;
+        & span:first-child {
+          color: #404040;
+        }
+      }
+    }
+  }
+
+  &__footer {
+    color: #9a9a9a;
+    font-size: 1rem;
+    text-transform: uppercase;
+    &--link {
+      margin: auto 0.5rem auto auto;
+      transition: all 0.5s;
+      &:hover,
+      &:active {
+        color: #f78181;
+        cursor: pointer;
+        padding-right: 0.5rem;
+      }
+    }
+    &--arrow {
+      color: #f78181;
+      padding-top: 0.5rem;
+      font-size: 1.5rem;
+    }
+  }
+}

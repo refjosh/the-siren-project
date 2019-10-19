@@ -31,10 +31,7 @@ const Footer = () => (
       </p>
       <p className="footer__copyright">
         &copy;2019 The Siren Project. Made with time by
-        <a
-          href="https://freebiesbug.com/sketch-freebies/the-siren/"
-          target="_blank"
-        >
+        <a href="https://github.com/joshtru" target="_blank">
           Josh
         </a>
       </p>
