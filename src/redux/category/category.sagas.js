@@ -1,6 +1,6 @@
 import { all, call, put, takeLatest } from "redux-saga/effects";
 
-import CATEGORIES from "../CATEGORIES";
+import CATEGORIES from "./CATEGORIES";
 import categoryTypes from "./category.types";
 import {
   fetchCategoriesSuccess,
@@ -10,8 +10,10 @@ import {
 export function* fetchCategories() {
   if (CATEGORIES) {
     yield put(fetchCategoriesSuccess(CATEGORIES));
+    return;
   } else {
     yield put(fetchCategoriesFailure("There are no categories"));
+    return;
   }
 }
 

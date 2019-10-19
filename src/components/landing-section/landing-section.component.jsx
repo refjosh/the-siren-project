@@ -35,6 +35,7 @@ class LandingSection extends React.Component {
                   .filter((item, idx) => idx < 4)
                   .map((item, index) => (
                     <LandingSlider
+                      key={index + 1}
                       index={index + 1}
                       title={item.title}
                       imageUrl={item.urlToImage}
@@ -49,8 +50,9 @@ class LandingSection extends React.Component {
           {topHeadlines
             ? topHeadlines
                 .filter((item, idx) => idx >= 4)
-                .map(headline => (
+                .map((headline, index) => (
                   <LandingThumb
+                    key={index}
                     title={headline.title}
                     imageUrl={headline.urlToImage}
                     category={headline.source.name}

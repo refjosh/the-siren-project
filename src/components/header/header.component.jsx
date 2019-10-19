@@ -13,6 +13,7 @@ class Header extends React.Component {
   }
   render() {
     const { categories } = this.props;
+    // console.log(categories);
     return (
       <div className="header">
         <div className="header__logo-box">
@@ -37,7 +38,7 @@ class Header extends React.Component {
 }
 
 const mapStateToProps = ({ category }) => ({
-  categories: category.categories
+  categories: category.state.categories
 });
 
 const mapDispatchToProps = dispatch => ({
