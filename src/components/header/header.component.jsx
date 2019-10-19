@@ -1,50 +1,17 @@
 import React from "react";
-import { connect } from "react-redux";
-import { ReactComponent as Logo } from "../../siren-logo.svg";
+import { ReactComponent as Logo } from "../../assets/logos/siren-logo.svg";
 
-import { fetchCategoriesStart } from "../../redux/category/category.actions";
+import CategoryMenu from "../category-menu/category-menu.component";
 
 import "./header.styles.scss";
 
-class Header extends React.Component {
-  componentDidMount() {
-    const { fetchCategories } = this.props;
-    fetchCategories();
-  }
-  render() {
-    const { categories } = this.props;
-    return (
-      <div className="header">
-        <div className="header__logo-box">
-          <Logo />
-        </div>
-        <div className="header__menu-box">
-          <ul className="header__menu">
-            {categories
-              ? categories.map(category => (
-                  <li className="header__menu--list" key={category}>
-                    <a className="header__menu--link" href={`${category}`}>
-                      {category}
-                    </a>
-                  </li>
-                ))
-              : null}
-          </ul>
-        </div>
-      </div>
-    );
-  }
-}
+const Header = ({ categories }) => (
+  <header className="header">
+    <div className="header__logo-box">
+      <Logo />
+    </div>
+    <CategoryMenu />
+  </header>
+);
 
-const mapStateToProps = ({ category }) => ({
-  categories: category.categories
-});
-
-const mapDispatchToProps = dispatch => ({
-  fetchCategories: () => dispatch(fetchCategoriesStart())
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Header);
+export default Header;

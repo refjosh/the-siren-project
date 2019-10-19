@@ -1,0 +1,27 @@
+.category {
+  &__menu {
+    list-style: none;
+    margin-top: 3rem;
+    font-size: 1.1rem;
+    &--list {
+      display: inline-block;
+      text-transform: capitalize;
+
+      &:not(:last-child) {
+        margin-right: 2rem;
+      }
+    }
+    &--link {
+      text-decoration: none;
+      color: #404040;
+
+      &:hover,
+      &:active {
+        cursor: pointer;
+        color: #f78181;
+        padding-bottom: 1rem;
+        border-bottom: 2px solid #f78181;
+      }
+    }
+  }
+}
