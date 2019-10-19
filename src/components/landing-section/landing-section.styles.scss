@@ -15,27 +15,6 @@
     width: 100 - 67.6%;
   }
 }
-.slider {
-  position: relative;
-  height: 40vh;
-  width: 100%;
-  &__image {
-    height: 100%;
-    width: 100%;
-  }
-  &__detail {
-    position: absolute;
-    color: #fff;
-    bottom: 2rem;
-    left: 3rem;
-    text-align: left;
-
-    &--title {
-      font-size: 1.5rem;
-      width: 50%;
-    }
-  }
-}
 
 // CAROUSEL STYLING
 .ant-carousel .slick-slide {

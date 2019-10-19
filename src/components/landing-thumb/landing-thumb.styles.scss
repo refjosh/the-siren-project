@@ -1,0 +1,59 @@
+.landing-thumb {
+  position: relative;
+  height: 40vh;
+  width: 100%;
+  background: #000000;
+  &__image {
+    height: 100%;
+    width: 100%;
+    opacity: 0.7;
+  }
+  &__detail {
+    position: absolute;
+    color: #fff;
+    bottom: 2rem;
+    left: 3rem;
+    text-align: left;
+
+    &--count {
+      font-size: 1.5rem;
+    }
+
+    &--title {
+      font-size: 1.5rem;
+      color: #fff;
+      width: 60%;
+      margin-top: 1rem;
+      margin-bottom: 1.5rem;
+      text-transform: capitalize;
+      &:hover,
+      &:active {
+        cursor: pointer;
+        text-decoration: underline;
+        text-decoration-color: #f78181;
+      }
+    }
+
+    &--bottom {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+    }
+
+    &--category {
+      &:hover,
+      &:active {
+        cursor: pointer;
+        padding-bottom: 0.8rem;
+        border-bottom: 1px solid #fff;
+      }
+    }
+  }
+}
+
+.solidus {
+  margin: 0 0.5rem;
+  &:first-child {
+    margin-left: -1rem;
+    margin-right: 1rem;
+  }
+}
