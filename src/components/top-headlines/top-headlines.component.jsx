@@ -6,6 +6,8 @@ import "antd/dist/antd.css";
 import { Row, Col } from "antd";
 import WithSpinner from "../witth-spinner/with-spinner.component";
 
+import { extractDateandTime } from "../../redux/until";
+
 import "./top-headlines.styles.scss";
 
 const TopHeadlines = ({ topHeadlines }) => (
@@ -33,7 +35,7 @@ const TopHeadlines = ({ topHeadlines }) => (
                 <div className="body__footer">
                   <span>{headline.source.name}</span>
                   <span className="solidus">&#47;</span>
-                  <span>{headline.publishedAt}</span>
+                  <span>{extractDateandTime(headline.publishedAt)}</span>
                 </div>
               </div>
             </Col>
