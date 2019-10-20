@@ -15,7 +15,11 @@ const Footer = () => (
       <p className="footer__credits">
         <span>
           News data API from
-          <a href="https://newsapi.org" target="_blank">
+          <a
+            href="https://newsapi.org"
+            target="_blank"
+            rel="noreferrer noopener"
+          >
             NewsAPI.org
           </a>
         </span>
@@ -24,6 +28,7 @@ const Footer = () => (
           <a
             href="https://freebiesbug.com/sketch-freebies/the-siren/"
             target="_blank"
+            rel="noreferrer noopener"
           >
             The Siren by Kulikov Ilya
           </a>
@@ -31,7 +36,11 @@ const Footer = () => (
       </p>
       <p className="footer__copyright">
         &copy;2019 The Siren Project. Made with time by
-        <a href="https://github.com/joshtru" target="_blank">
+        <a
+          href="https://github.com/joshtru"
+          target="_blank"
+          rel="noreferrer noopener"
+        >
           Josh
         </a>
       </p>
