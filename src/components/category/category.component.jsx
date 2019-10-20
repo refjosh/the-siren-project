@@ -15,7 +15,6 @@ const Category = ({ match, history, categoriesHeadlines }) => (
   <div>
     {categoriesHeadlines.map(category => (
       <section className="top-headlines-section" key={category.id}>
-        =
         <div className="top-headlines-section__head">
           <h2 className="short--underline">{category.category}</h2>
         </div>
