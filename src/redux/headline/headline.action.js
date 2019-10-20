@@ -25,7 +25,7 @@ export const fetchSingleHeadlineStart = headline => ({
 });
 
 export const fetchSingleHeadlineSuccess = headline => ({
-  type: headlineTypes.FETCH_SHUFFLED_HEADLINES_SUCCESS,
+  type: headlineTypes.FETCH_SINGLE_HEADLINE_SUCCESS,
   payload: headline
 });
 

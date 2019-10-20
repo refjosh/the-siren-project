@@ -30,7 +30,7 @@ class App extends React.Component {
           <Col span={16} offset={4}>
             <Switch>
               <Route exact path="/news" component={HomePage} />
-              <Route path="/news/:title" component={SingleNews} />
+              <Route path="/news/:category/:title" component={SingleNews} />
             </Switch>
           </Col>
         </Row>

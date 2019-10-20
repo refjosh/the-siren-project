@@ -3,7 +3,7 @@ import headlineTypes from "./headline.types";
 const INITIAL_STATE = {
   topHeadlines: [],
   shuffledHeadlines: [],
-  singleHeadline: [],
+  singleHeadline: null,
   isFetchingTopHeadlines: false,
   isFetchingShuffledHeadlines: false,
   isFetchingSingle: false,

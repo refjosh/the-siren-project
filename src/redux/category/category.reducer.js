@@ -42,7 +42,8 @@ const categoryReducer = (state = INITIAL_STATE, action) => {
       return {
         error: action.payload,
         isFetching: false,
-        isFetchingHeadlines: false
+        isFetchingHeadlines: false,
+        isFetchingSingleHeadline: false
       };
 
     default:

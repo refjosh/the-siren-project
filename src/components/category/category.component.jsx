@@ -2,12 +2,17 @@ import React from "react";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { withRouter } from "react-router-dom";
+import { createStructuredSelector } from "reselect";
 
 import "antd/dist/antd.css";
 import { Row, Col } from "antd";
 import WithSpinner from "../witth-spinner/with-spinner.component";
 
 import { extractDateandTime } from "../../redux/until";
+import {
+  isFetchingHeadlines,
+  selectCategoriesHeadlines
+} from "../../redux/category/category.selector";
 
 import "../top-headlines/top-headlines.styles.scss";
 
@@ -37,7 +42,9 @@ const Category = ({ match, history, categoriesHeadlines }) => (
                       className="body__header"
                       onClick={() =>
                         history.push(
-                          `${match.url}/${headline.title.toLowerCase()}`
+                          `${
+                            match.url
+                          }/${category.category.toLowerCase()}/${headline.title.toLowerCase()}`
                         )
                       }
                     >
@@ -63,9 +70,9 @@ const Category = ({ match, history, categoriesHeadlines }) => (
   </div>
 );
 
-const mapStateToProps = ({ category }) => ({
-  categoriesHeadlines: category.categoriesHeadlines,
-  isFetching: category.isFetchingHeadlines
+const mapStateToProps = createStructuredSelector({
+  categoriesHeadlines: selectCategoriesHeadlines,
+  isFetching: isFetchingHeadlines
 });
 
 export default compose(

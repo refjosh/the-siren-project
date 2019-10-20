@@ -4,8 +4,11 @@ import headlineTypes from "./headline.types";
 import {
   fetchTopHeadlinesSuccess,
   fetchShuffledHeadlinesSuccess,
-  fetchTopHeadlinesFailure
+  fetchTopHeadlinesFailure,
+  fetchSingleHeadlineSuccess,
+  fetchSingleHeadlineFailure
 } from "./headline.action";
+
 const API_KEY = "5871814cd94a40fa9bca75cce204c2cd";
 
 export function* shuffleHeadlines(headlines) {
@@ -42,8 +45,23 @@ export function* fetchTopHeadlines() {
   }
 }
 
-export function* fetchSingle({ payload }) {
-  yield console.log(payload);
+export function* fetchSingle({
+  payload: { title, category, categoriesHeadlines }
+}) {
+  const categoryResult = yield categoriesHeadlines.filter(
+    categoryName => categoryName.category === category
+  );
+  if (!categoryResult) {
+    return put(fetchSingleHeadlineFailure("Category not found"));
+  }
+  const headlineResult = yield categoryResult[0].headlines.filter(
+    headline => headline.title.toLowerCase() === title
+  );
+  if (!headlineResult) {
+    return put(fetchSingleHeadlineFailure("Headline not found"));
+  }
+  const newHeadlineResult = headlineResult[0];
+  yield put(fetchSingleHeadlineSuccess(newHeadlineResult));
 }
 
 export function* onFetchTopHeadlinesStart() {
