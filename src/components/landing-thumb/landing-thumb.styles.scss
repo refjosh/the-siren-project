@@ -23,6 +23,13 @@
       width: 75%;
       margin-bottom: 1.2rem;
       text-transform: capitalize;
+      display: block;
+      display: -webkit-box;
+      height: 3rem;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
       &:hover,
       &:active {
         cursor: pointer;
