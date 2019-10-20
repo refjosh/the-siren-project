@@ -8,14 +8,18 @@ import Footer from "./components/footer/footer.component";
 import { Row, Col } from "antd";
 import "antd/dist/antd.css";
 
-import { fetchCategoriesStart } from "./redux/category/category.actions";
+import {
+  fetchCategoriesStart,
+  fetchCategoryHeadlinesStart
+} from "./redux/category/category.actions";
 
 import "./App.css";
 
 class App extends React.Component {
   componentDidMount() {
-    const { fetchCategories } = this.props;
+    const { fetchCategories, fetchCategoriesHeadlines } = this.props;
     fetchCategories();
+    fetchCategoriesHeadlines();
   }
   render() {
     return (
@@ -35,7 +39,8 @@ class App extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  fetchCategories: () => dispatch(fetchCategoriesStart())
+  fetchCategories: () => dispatch(fetchCategoriesStart()),
+  fetchCategoriesHeadlines: () => dispatch(fetchCategoryHeadlinesStart())
 });
 
 export default connect(

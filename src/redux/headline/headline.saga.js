@@ -6,7 +6,6 @@ import {
   fetchShuffledHeadlinesSuccess,
   fetchTopHeadlinesFailure
 } from "./headline.action";
-
 const API_KEY = "5871814cd94a40fa9bca75cce204c2cd";
 
 export function* shuffleHeadlines(headlines) {
