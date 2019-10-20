@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import LandingSection from "../../components/landing-section/landing-section.component";
 import TopHeadlines from "../../components/top-headlines/top-headlines.component";
+import Category from "../../components/category/category.component";
 
 import { fetchTopHeadlinesStart } from "../../redux/headline/headline.action";
 
@@ -17,6 +18,7 @@ class HomePage extends React.Component {
       <div className="homePage">
         <LandingSection />
         <TopHeadlines />
+        <Category />
       </div>
     );
   }

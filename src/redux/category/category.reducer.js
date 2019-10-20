@@ -3,7 +3,7 @@ import categoryTypes from "./category.types";
 const INITIAL_STATE = {
   categories: null,
   categoriesHeadlines: [],
-  selectedCategories: [],
+  selectedCategories: null,
   isFetching: false,
   isFetchingHeadlines: false,
   error: undefined

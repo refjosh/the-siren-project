@@ -21,25 +21,30 @@ export function* fetchCategories() {
   }
 }
 
-export function runThrough(categories) {
-  const newHeadlines = [];
-  categories.map(category => {
-    fetch(
-      `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${API_KEY}`
-    )
-      .then(response => response.json())
-      .then(result => {
-        newHeadlines.push({ category: category, headlines: result.articles });
+export function* runThrough(categories) {
+  const newHeadlines = yield [];
+  try {
+    for (let i = 0; i < categories.length; i++) {
+      const response = yield fetch(
+        `https://newsapi.org/v2/top-headlines?country=us&category=${categories[i]}&apiKey=${API_KEY}`
+      );
+      const result = yield response.json();
+      yield newHeadlines.push({
+        id: i + 1,
+        category: categories[i],
+        headlines: result.articles
       });
-  });
-  return newHeadlines;
+    }
+    yield put(fetchCategoryHeadlinesSuccess(newHeadlines));
+  } catch (error) {
+    yield put(fetchCategoryHeadlinesFailure(error));
+  }
 }
 
 export function* fetchCategoriesHeadlines() {
   const selectedCategories = yield SELECTEDCATEGORIES;
   try {
-    const headlines = yield runThrough(selectedCategories);
-    yield put(fetchCategoryHeadlinesSuccess(headlines));
+    yield runThrough(selectedCategories);
   } catch (error) {
     yield put(fetchCategoryHeadlinesFailure(error));
   }
