@@ -3,8 +3,10 @@ import headlineTypes from "./headline.types";
 const INITIAL_STATE = {
   topHeadlines: [],
   shuffledHeadlines: [],
+  singleHeadline: [],
   isFetchingTopHeadlines: false,
   isFetchingShuffledHeadlines: false,
+  isFetchingSingle: false,
   error: null
 };
 
@@ -31,6 +33,20 @@ const headlineReducer = (state = INITIAL_STATE, action) => {
         error: null
       };
 
+    case headlineTypes.FETCH_SINGLE_HEADLINE_START:
+      return {
+        ...state,
+        isFetchingSingle: true
+      };
+
+    case headlineTypes.FETCH_SINGLE_HEADLINE_SUCCESS:
+      return {
+        ...state,
+        singleHeadline: action.payload,
+        isFetchingSingle: false
+      };
+
+    case headlineTypes.FETCH_SINGLE_HEADLINE_FAILURE:
     case headlineTypes.FETCH_TOP_HEADLINES_FAILURE:
       return {
         ...state,

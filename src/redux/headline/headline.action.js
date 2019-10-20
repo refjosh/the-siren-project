@@ -18,3 +18,18 @@ export const fetchTopHeadlinesFailure = error => ({
   type: headlineTypes.FETCH_TOP_HEADLINES_FAILURE,
   payload: error
 });
+
+export const fetchSingleHeadlineStart = headline => ({
+  type: headlineTypes.FETCH_SINGLE_HEADLINE_START,
+  payload: headline
+});
+
+export const fetchSingleHeadlineSuccess = headline => ({
+  type: headlineTypes.FETCH_SHUFFLED_HEADLINES_SUCCESS,
+  payload: headline
+});
+
+export const fetchSingleHeadlineFailure = error => ({
+  type: headlineTypes.FETCH_SINGLE_HEADLINE_FAILURE,
+  payload: error
+});

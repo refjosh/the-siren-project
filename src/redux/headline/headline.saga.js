@@ -42,10 +42,18 @@ export function* fetchTopHeadlines() {
   }
 }
 
+export function* fetchSingle({ payload }) {
+  yield console.log(payload);
+}
+
 export function* onFetchTopHeadlinesStart() {
   yield takeLatest(headlineTypes.FETCH_TOP_HEADLINES_START, fetchTopHeadlines);
 }
 
+export function* onFetchSingleHeadlineStart() {
+  yield takeLatest(headlineTypes.FETCH_SINGLE_HEADLINE_START, fetchSingle);
+}
+
 export function* headlineSagas() {
-  yield all([call(onFetchTopHeadlinesStart)]);
+  yield all([call(onFetchTopHeadlinesStart), call(onFetchSingleHeadlineStart)]);
 }

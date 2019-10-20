@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { compose } from "redux";
+import { withRouter } from "react-router-dom";
 
 import "antd/dist/antd.css";
 import { Row, Col } from "antd";
@@ -10,10 +11,11 @@ import { extractDateandTime } from "../../redux/until";
 
 import "../top-headlines/top-headlines.styles.scss";
 
-const Category = ({ categoriesHeadlines }) => (
+const Category = ({ match, history, categoriesHeadlines }) => (
   <div>
     {categoriesHeadlines.map(category => (
       <section className="top-headlines-section" key={category.id}>
+        =
         <div className="top-headlines-section__head">
           <h2 className="short--underline">{category.category}</h2>
         </div>
@@ -32,7 +34,16 @@ const Category = ({ categoriesHeadlines }) => (
                   xl={8}
                 >
                   <div className="body">
-                    <h3 className="body__header">{headline.title}</h3>
+                    <h3
+                      className="body__header"
+                      onClick={() =>
+                        history.push(
+                          `${match.url}/${headline.title.toLowerCase()}`
+                        )
+                      }
+                    >
+                      {headline.title}
+                    </h3>
                     <p className="body__content">{headline.description}</p>
                     <div className="body__footer">
                       <span>{headline.source.name}</span>
@@ -60,5 +71,6 @@ const mapStateToProps = ({ category }) => ({
 
 export default compose(
   connect(mapStateToProps),
-  WithSpinner
+  WithSpinner,
+  withRouter
 )(Category);
