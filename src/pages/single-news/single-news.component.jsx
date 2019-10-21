@@ -19,99 +19,83 @@ import "antd/dist/antd.css";
 import { Row, Col, Icon, Empty } from "antd";
 import { extractDate, extractTime } from "../../redux/until";
 
-class SingleNews extends React.Component {
-  componentDidMount() {
-    const {
-      categoriesHeadlines,
-      fetchSingleHeadline,
-      match: {
-        params: { category, title }
-      }
-    } = this.props;
-    //     fetchSingleHeadline({ title, category, categoriesHeadlines });
-  }
-  render() {
-    const { singleHeadline } = this.props;
-    return (
-      <div className="single-news">
+const SingleNews = ({ singleHeadline, isFetching }) => (
+  <div className="single-news">
+    {singleHeadline ? (
+      <Row gutter={[8, 16]}>
+        <Col
+          className="single-news__image-column"
+          key={1}
+          xs={24}
+          sm={24}
+          md={24}
+          lg={24}
+          xl={24}
+        >
+          {singleHeadline.urlToImage ? (
+            <img
+              className="single-news__image-column--image"
+              src={singleHeadline.urlToImage}
+              alt={singleHeadline.title}
+            />
+          ) : (
+            <Empty description={"No Image"} />
+          )}
+        </Col>
+      </Row>
+    ) : null}
+    <Row gutter={[8, 16]}>
+      <Col
+        className="single-news__body"
+        key={1}
+        xs={24}
+        sm={24}
+        md={24}
+        lg={24}
+        xl={24}
+      >
         {singleHeadline ? (
-          <Row gutter={[8, 16]}>
-            <Col
-              className="single-news__image-column"
-              key={1}
-              xs={24}
-              sm={24}
-              md={24}
-              lg={24}
-              xl={24}
-            >
-              {singleHeadline.urlToImage ? (
-                <img
-                  className="single-news__image-column--image"
-                  src={singleHeadline.urlToImage}
-                  alt={singleHeadline.title}
-                />
-              ) : (
-                <Empty />
-              )}
-            </Col>
-          </Row>
-        ) : null}
-        <Row gutter={[8, 16]}>
-          <Col
-            className="single-news__body"
-            key={1}
-            xs={24}
-            sm={24}
-            md={24}
-            lg={24}
-            xl={24}
-          >
-            {singleHeadline ? (
-              <div>
-                <h2 className="single-news__body--title">
-                  {singleHeadline.title}
-                </h2>
-                <div className="publication-details">
-                  <div className="publication-details__published-box">
-                    <p>Published</p>
-                    <span className="publication-details__published-box--published-details">
-                      <span>
-                        <Icon type="calendar" />
-                        {extractDate(singleHeadline.publishedAt)}
-                      </span>
-                      <span>
-                        <Icon type="clock-circle" />
-                        {extractTime(singleHeadline.publishedAt)}
-                      </span>
-                    </span>
-                  </div>
-                  <div className="publication-details__publisher-box">
-                    <p>Source</p>
-                    <span>{singleHeadline.source.name}</span>
-                  </div>
-                </div>
-                <div className="single-news__body--content">
-                  <p>{singleHeadline.content}</p>
-                </div>
-                <div className="single-news__footer">
+          <div>
+            <h2 className="single-news__body--title">{singleHeadline.title}</h2>
+            <div className="publication-details">
+              <div className="publication-details__published-box">
+                <p>Published</p>
+                <span className="publication-details__published-box--published-details">
                   <span>
-                    <Icon type="arrow-left" />
-                    Prev
+                    <Icon type="calendar" />
+                    {extractDate(singleHeadline.publishedAt)}
                   </span>
                   <span>
-                    Next
-                    <Icon type="arrow-right" />
+                    <Icon type="clock-circle" />
+                    {extractTime(singleHeadline.publishedAt)}
                   </span>
-                </div>
+                </span>
               </div>
-            ) : null}
-          </Col>
-        </Row>
-      </div>
-    );
-  }
-}
+              <div className="publication-details__publisher-box">
+                <p>Source</p>
+                <span>{singleHeadline.source.name}</span>
+              </div>
+            </div>
+            <div className="single-news__body--content">
+              <p>{singleHeadline.description}</p>
+            </div>
+            <div className="single-news__footer">
+              {/* // TODO: Added prev and next button */}
+              {/* <span>
+                <Icon type="arrow-left" />
+                Prev
+              </span>
+              <span>
+                Next
+                <Icon type="arrow-right" />
+              </span> */}
+            </div>
+          </div>
+        ) : null}
+      </Col>
+    </Row>
+  </div>
+);
 
 const mapStateToProps = createStructuredSelector({
   isFetching: selectIsFetchingSingle,

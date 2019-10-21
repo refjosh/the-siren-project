@@ -18,7 +18,7 @@ import {
 
 import "../top-headlines/top-headlines.styles.scss";
 
-const Category = ({
+const CategoryPreview = ({
   match,
   history,
   categoriesHeadlines,
@@ -95,4 +95,4 @@ export default compose(
   ),
   WithSpinner,
   withRouter
-)(Category);
+)(CategoryPreview);
