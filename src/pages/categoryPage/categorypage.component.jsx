@@ -28,7 +28,6 @@ const CategoryPage = () => (
                 publishedAt={headline.publishedAt}
               /> */}
           {/* ))} */}
-          <h1>Hello World</h1>
         </Row>
       </div>
     </Row>

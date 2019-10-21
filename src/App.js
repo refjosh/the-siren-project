@@ -31,10 +31,10 @@ class App extends React.Component {
           <Col className="responsive-box" span={16} offset={4}>
             <Switch>
               <Route exact path="/news" component={HomePage} />
-              <Route path="news/:category" component={CategoryPage} />
+              <Route exact path="/news/:category" component={CategoryPage} />
               <Route
                 exact
-                path="news/:category/:title"
+                path="/news/:category/:title"
                 component={SingleNews}
               />
             </Switch>
