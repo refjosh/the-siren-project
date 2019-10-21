@@ -17,7 +17,7 @@ const LandingSection = ({ topHeadlines }) => {
   return (
     <div className="landing-section">
       <Row gutter={[8, 16]}>
-        <Col xs={24} sm={24} md={24} lg={16} xl={16}>
+        <Col xs={24} sm={24} md={24} lg={15} xl={15}>
           <div className="landing-section__main-slider">
             <Carousel
               speed={2500}
@@ -43,20 +43,20 @@ const LandingSection = ({ topHeadlines }) => {
             </Carousel>
           </div>
         </Col>
-        <Col xs={24} sm={24} md={24} lg={8} xl={8}>
-          {/* <div className="landing-section__seconday-section"> */}
-          {topHeadlines
-            .filter((item, idx) => idx >= 4)
-            .map((headline, index) => (
-              <LandingThumb
-                key={index}
-                title={headline.title}
-                imageUrl={headline.urlToImage}
-                category={headline.source.name}
-                date={extractDate(headline.publishedAt)}
-              />
-            ))}
-          {/* </div> */}
+        <Col xs={24} sm={24} md={24} lg={9} xl={9}>
+          <div className="landing-section__seconday-section">
+            {topHeadlines
+              .filter((item, idx) => idx >= 4)
+              .map((headline, index) => (
+                <LandingThumb
+                  key={index}
+                  title={headline.title}
+                  imageUrl={headline.urlToImage}
+                  category={headline.source.name}
+                  date={extractDate(headline.publishedAt)}
+                />
+              ))}
+          </div>
         </Col>
       </Row>
     </div>

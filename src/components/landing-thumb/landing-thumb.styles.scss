@@ -2,8 +2,11 @@
   position: relative;
   width: 100%;
   background: #000000;
-  &:first-child {
+  &__small:first-child {
     margin-bottom: 1rem;
+  }
+  &__small {
+    height: 26.6vh;
   }
   &__image {
     height: 100%;

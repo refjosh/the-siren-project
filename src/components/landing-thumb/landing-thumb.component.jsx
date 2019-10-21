@@ -3,7 +3,7 @@ import React from "react";
 import "./landing-thumb.styles.scss";
 
 const LandingThumb = ({ title, imageUrl, category, date }) => (
-  <div className="landing-thumb">
+  <div className="landing-thumb landing-thumb__small">
     <img className="landing-thumb__image" src={imageUrl} alt={title} />
     <div className="landing-thumb__detail">
       <h3 className="landing-thumb__detail--title">{title}</h3>
