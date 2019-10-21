@@ -1,5 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
+import { compose } from "redux";
+import { withRouter } from "react-router-dom";
 import LandingSection from "../../components/landing-section/landing-section.component";
 import TopHeadlines from "../../components/top-headlines/top-headlines.component";
 import CategoryPreview from "../../components/category/category-preview.component";
@@ -14,6 +16,8 @@ class HomePage extends React.Component {
     fetchTopHeadlinesStart();
   }
   render() {
+    const { match } = this.props;
+    console.log(match);
     return (
       <div className="homePage">
         <LandingSection />
@@ -28,7 +32,10 @@ const maptDispatchToProps = dispatch => ({
   fetchTopHeadlinesStart: () => dispatch(fetchTopHeadlinesStart())
 });
 
-export default connect(
-  null,
-  maptDispatchToProps
+export default compose(
+  connect(
+    null,
+    maptDispatchToProps
+  ),
+  withRouter
 )(HomePage);

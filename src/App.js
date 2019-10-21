@@ -5,6 +5,7 @@ import HomePage from "./pages/homepage/homepage.component";
 import Header from "./components/header/header.component";
 import Footer from "./components/footer/footer.component";
 import SingleNews from "./pages/single-news/single-news.component";
+import CategoryPage from "./pages/categoryPage/categorypage.component";
 
 import { Row, Col } from "antd";
 import "antd/dist/antd.css";
@@ -30,7 +31,12 @@ class App extends React.Component {
           <Col className="responsive-box" span={16} offset={4}>
             <Switch>
               <Route exact path="/news" component={HomePage} />
-              <Route path="/news/:category/:title" component={SingleNews} />
+              <Route path="news/:category" component={CategoryPage} />
+              <Route
+                exact
+                path="news/:category/:title"
+                component={SingleNews}
+              />
             </Switch>
           </Col>
         </Row>

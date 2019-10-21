@@ -8,6 +8,7 @@ import { extractDate } from "../../redux/until";
 
 import "antd/dist/antd.css";
 import "./single-headline.styles.scss";
+import "../top-headlines/top-headlines.styles.scss";
 
 import { fetchSingleHeadlineStart } from "../../redux/headline/headline.action";
 
@@ -57,6 +58,9 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default compose(
-  connect(mapDispatchToProps),
+  connect(
+    null,
+    mapDispatchToProps
+  ),
   withRouter
 )(SingleHeadline);
