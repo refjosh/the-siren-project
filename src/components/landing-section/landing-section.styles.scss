@@ -5,11 +5,13 @@
   width: 100%;
   height: 100%;
 
-  &__main-slider {
+  @media only screen and (max-width: 991px) {
+    &__seconday-section {
+      display: none;
+    }
   }
   &__seconday-section {
     font-size: 0.5rem;
-    display: inline;
   }
 }
 
