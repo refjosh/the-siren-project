@@ -1,18 +1,16 @@
 .landing-section {
-  display: inline-flex;
+  // display: inline-flex;
   border-top: 0.5px solid rgba(128, 128, 128, 0.384);
   padding-top: 2rem;
   margin: 0 auto;
-  width: 70vw;
-  height: 100%;
+  // width: 70vw;
+  // height: 100%;
 
   &__main-slider {
-    width: 65%;
+    width: 100%;
     height: 100%;
-    margin: auto;
   }
   &__seconday-section {
-    width: 100 - 65%;
     height: 100%;
     padding: 1rem;
     font-size: 0.5rem;
