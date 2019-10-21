@@ -62,6 +62,8 @@ export function* fetchSingle({ payload: { title, category } }) {
     );
     if (headlines.length === 0) {
       headlinesArray = yield select(selectSingleCategoryHeadlines);
+    } else {
+      headlinesArray = yield headlines[0].headlines;
     }
   }
   const headlineResult = yield headlinesArray.filter(
