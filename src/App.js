@@ -27,7 +27,7 @@ class App extends React.Component {
       <div className="App">
         <Header />
         <Row>
-          <Col span={16} offset={4}>
+          <Col className="responsive-box" span={16} offset={4}>
             <Switch>
               <Route exact path="/news" component={HomePage} />
               <Route path="/news/:category/:title" component={SingleNews} />

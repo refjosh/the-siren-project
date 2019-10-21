@@ -16,7 +16,8 @@ import {
 import "./single-news.styels.scss";
 
 import "antd/dist/antd.css";
-import { Row, Col } from "antd";
+import { Row, Col, Icon, Empty } from "antd";
+import { extractDate, extractTime } from "../../redux/until";
 
 class SingleNews extends React.Component {
   componentDidMount() {
@@ -27,20 +28,86 @@ class SingleNews extends React.Component {
         params: { category, title }
       }
     } = this.props;
-    fetchSingleHeadline({ title, category, categoriesHeadlines });
+    //     fetchSingleHeadline({ title, category, categoriesHeadlines });
   }
   render() {
     const { singleHeadline } = this.props;
-    console.log(singleHeadline);
     return (
       <div className="single-news">
-        <div className="single-news__image">
-          <img src="" alt="title" />
-        </div>
-        <div className="single-news__title">
-          <h2></h2> <span></span>
-        </div>
-        <div className="single-news__footer"></div>
+        {singleHeadline ? (
+          <Row gutter={[8, 16]}>
+            <Col
+              className="single-news__image-column"
+              key={1}
+              xs={24}
+              sm={24}
+              md={24}
+              lg={24}
+              xl={24}
+            >
+              {singleHeadline.urlToImage ? (
+                <img
+                  className="single-news__image-column--image"
+                  src={singleHeadline.urlToImage}
+                  alt={singleHeadline.title}
+                />
+              ) : (
+                <Empty />
+              )}
+            </Col>
+          </Row>
+        ) : null}
+        <Row gutter={[8, 16]}>
+          <Col
+            className="single-news__body"
+            key={1}
+            xs={24}
+            sm={24}
+            md={24}
+            lg={24}
+            xl={24}
+          >
+            {singleHeadline ? (
+              <div>
+                <h2 className="single-news__body--title">
+                  {singleHeadline.title}
+                </h2>
+                <div className="publication-details">
+                  <div className="publication-details__published-box">
+                    <p>Published</p>
+                    <span className="publication-details__published-box--published-details">
+                      <span>
+                        <Icon type="calendar" />
+                        {extractDate(singleHeadline.publishedAt)}
+                      </span>
+                      <span>
+                        <Icon type="clock-circle" />
+                        {extractTime(singleHeadline.publishedAt)}
+                      </span>
+                    </span>
+                  </div>
+                  <div className="publication-details__publisher-box">
+                    <p>Source</p>
+                    <span>{singleHeadline.source.name}</span>
+                  </div>
+                </div>
+                <div className="single-news__body--content">
+                  <p>{singleHeadline.content}</p>
+                </div>
+                <div className="single-news__footer">
+                  <span>
+                    <Icon type="arrow-left" />
+                    Prev
+                  </span>
+                  <span>
+                    Next
+                    <Icon type="arrow-right" />
+                  </span>
+                </div>
+              </div>
+            ) : null}
+          </Col>
+        </Row>
       </div>
     );
   }

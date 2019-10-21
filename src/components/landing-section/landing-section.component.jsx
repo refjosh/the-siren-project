@@ -8,7 +8,7 @@ import LandingThumb from "../landing-thumb/landing-thumb.component";
 
 import WithSpinner from "../witth-spinner/with-spinner.component";
 
-import { extractDateandTime } from "../../redux/until";
+import { extractDate } from "../../redux/until";
 
 import "antd/dist/antd.css";
 import "./landing-section.styles.scss";
@@ -49,7 +49,7 @@ const LandingSection = ({ topHeadlines }) => {
               title={headline.title}
               imageUrl={headline.urlToImage}
               category={headline.source.name}
-              date={extractDateandTime(headline.publishedAt)}
+              date={extractDate(headline.publishedAt)}
             />
           ))}
       </div>

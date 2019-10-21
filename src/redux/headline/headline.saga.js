@@ -45,16 +45,10 @@ export function* fetchTopHeadlines() {
   }
 }
 
-export function* fetchSingle({
-  payload: { title, category, categoriesHeadlines }
-}) {
-  const categoryResult = yield categoriesHeadlines.filter(
-    categoryName => categoryName.category === category
-  );
-  if (!categoryResult) {
-    return put(fetchSingleHeadlineFailure("Category not found"));
-  }
-  const headlineResult = yield categoryResult[0].headlines.filter(
+export function* fetchSingle({ payload: { headline, category } }) {
+  const headlineCategory = yield category;
+  const title = yield headline.title.toLowerCase();
+  const headlineResult = yield headlineCategory.headlines.filter(
     headline => headline.title.toLowerCase() === title
   );
   if (!headlineResult) {

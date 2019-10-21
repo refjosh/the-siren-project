@@ -8,7 +8,9 @@ import "antd/dist/antd.css";
 import { Row, Col } from "antd";
 import WithSpinner from "../witth-spinner/with-spinner.component";
 
-import { extractDateandTime } from "../../redux/until";
+import { fetchSingleHeadlineStart } from "../../redux/headline/headline.action";
+
+import { extractDate } from "../../redux/until";
 import {
   isFetchingHeadlines,
   selectCategoriesHeadlines
@@ -16,7 +18,12 @@ import {
 
 import "../top-headlines/top-headlines.styles.scss";
 
-const Category = ({ match, history, categoriesHeadlines }) => (
+const Category = ({
+  match,
+  history,
+  categoriesHeadlines,
+  fetchSingleHeadline
+}) => (
   <div>
     {categoriesHeadlines.map(category => (
       <section className="top-headlines-section" key={category.id}>
@@ -40,13 +47,15 @@ const Category = ({ match, history, categoriesHeadlines }) => (
                   <div className="body">
                     <h3
                       className="body__header"
-                      onClick={() =>
+                      onClick={() => (
                         history.push(
-                          `${
-                            match.url
-                          }/${category.category.toLowerCase()}/${headline.title.toLowerCase()}`
-                        )
-                      }
+                          `${match.url}/${category.category}/${headline.title}`
+                        ),
+                        fetchSingleHeadline({
+                          headline,
+                          category
+                        })
+                      )}
                     >
                       {headline.title}
                     </h3>
@@ -54,7 +63,7 @@ const Category = ({ match, history, categoriesHeadlines }) => (
                     <div className="body__footer">
                       <span>{headline.source.name}</span>
                       <span className="solidus">&#47;</span>
-                      <span>{extractDateandTime(headline.publishedAt)}</span>
+                      <span>{extractDate(headline.publishedAt)}</span>
                     </div>
                   </div>
                 </Col>
@@ -75,8 +84,15 @@ const mapStateToProps = createStructuredSelector({
   isFetching: isFetchingHeadlines
 });
 
+const mapDispatchToProps = dispatch => ({
+  fetchSingleHeadline: item => dispatch(fetchSingleHeadlineStart(item))
+});
+
 export default compose(
-  connect(mapStateToProps),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  ),
   WithSpinner,
   withRouter
 )(Category);

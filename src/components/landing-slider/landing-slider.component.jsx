@@ -1,6 +1,6 @@
 import React from "react";
 
-import { extractDateandTime } from "../../redux/until";
+import { extractDate } from "../../redux/until";
 
 import "./landing-slider.styles.scss";
 
@@ -20,7 +20,7 @@ const LandingSlider = ({ index, title, imageUrl, category, date }) => (
         <span className="landing-slider__detail--category">{category}</span>
         <span className="solidus">&#47;</span>
         <span className="landing-slider__detail--date">
-          {extractDateandTime(date)}
+          {extractDate(date)}
         </span>
       </p>
     </div>
