@@ -4,7 +4,7 @@ import { compose } from "redux";
 import { withRouter } from "react-router-dom";
 import { createStructuredSelector } from "reselect";
 
-import { Row, Spin, Icon } from "antd";
+import { Row, Spin, Icon, Button } from "antd";
 import WithSpinner from "../../components/witth-spinner/with-spinner.component";
 
 import SingleHeadline from "../../components/single-headline/single-headline.component";
@@ -20,7 +20,7 @@ import "./categorypage.styles.scss";
 
 const CategoryPage = ({ match, categoryHeadlines }) => {
   const headlinesCount =
-    categoryHeadlines.length !== null ? categoryHeadlines.length : 0;
+    categoryHeadlines.length !== undefined ? categoryHeadlines.length : 0;
   const [loadNumber, setLoadNumber] = useState(6);
   const [loadLimit] = useState(headlinesCount);
 
@@ -49,9 +49,14 @@ const CategoryPage = ({ match, categoryHeadlines }) => {
           </Row>
         </div>
         {loadNumber >= loadLimit ? null : (
-          <div>
-            <Icon type="down" />
-            <p onClick={() => setLoadNumber(loadNumber + 6)}>Load more</p>
+          <div className="category-page__footer">
+            <button
+              className="load-more"
+              onClick={() => setLoadNumber(loadNumber + 6)}
+            >
+              <p className="load-more__text">load more</p>
+              <Icon type="down" className="down-arrow" />
+            </button>
           </div>
         )}
       </Row>
