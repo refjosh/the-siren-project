@@ -7,7 +7,9 @@ import {
   fetchCategoriesSuccess,
   fetchCategoriesFailure,
   fetchCategoryHeadlinesSuccess,
-  fetchCategoryHeadlinesFailure
+  fetchCategoryHeadlinesFailure,
+  fetchSingleCategoryHeadlinesSuccss,
+  fetchSingleCategoryHeadlinesFailure
 } from "./category.actions";
 const API_KEY = "5871814cd94a40fa9bca75cce204c2cd";
 
@@ -50,6 +52,25 @@ export function* fetchCategoriesHeadlines() {
   }
 }
 
+export function* fetchSingleCategoryHeadlines({ payload: { category } }) {
+  try {
+    const response = yield fetch(
+      `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${API_KEY}`
+    );
+    const result = yield response.json();
+    if (result.status === "ok") {
+      yield put(fetchSingleCategoryHeadlinesSuccss(result.articles));
+    } else {
+      yield put(
+        fetchCategoryHeadlinesFailure("There was an error fetching headlines")
+      );
+    }
+  } catch (error) {
+    yield put(fetchCategoryHeadlinesFailure(error));
+  }
+}
+
+// ON START
 export function* onFetchCategories() {
   yield takeLatest(categoryTypes.FETCH_CATEGORIES_START, fetchCategories);
 }
@@ -61,6 +82,18 @@ export function* onFetchCategoriesHeadlines() {
   );
 }
 
+export function* onFetchSingleCategoryHeadlines() {
+  yield takeLatest(
+    categoryTypes.FETCH_SINGLE_CATEGORY_HEADLINES_START,
+    fetchSingleCategoryHeadlines
+  );
+}
+
+// SAGAS
 export function* categorySagas() {
-  yield all([call(onFetchCategories), call(onFetchCategoriesHeadlines)]);
+  yield all([
+    call(onFetchCategories),
+    call(onFetchCategoriesHeadlines),
+    call(onFetchSingleCategoryHeadlines)
+  ]);
 }

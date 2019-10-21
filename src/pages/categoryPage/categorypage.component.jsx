@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { compose } from "redux";
+import { withRouter } from "react-router-dom";
 
 import { Row, Col } from "antd";
 import WithSpinner from "../../components/witth-spinner/with-spinner.component";
@@ -11,27 +12,27 @@ import "antd/dist/antd.css";
 import "../../components/top-headlines/top-headlines.styles.scss";
 import "./categorypage.styles.scss";
 
-const CategoryPage = () => (
+const CategoryPage = ({ match }) => (
   <div className="category-page">
     <Row gutter={[8, 16]}>
-      <h2 className="short--underline">Technology</h2>
+      <h2 className="short--underline">{match.params.category}</h2>
       <div className="top-headlines-section__body">
-        <Row gutter={[8, 16]} className="top-headlines-section__body--row">
-          {/* {category.headlines
+        {/* <Row gutter={[8, 16]} className="top-headlines-section__body--row">
+          {category.headlines
             .filter((item, idx) => idx < 3)
-            .map((headline, index) => ( */}
-          {/* <SingleHeadline
+            .map((headline, index) => (
+          <SingleHeadline
                 category={category.category}
                 title={headline.title}
                 description={headline.description}
                 source={headline.source}
                 publishedAt={headline.publishedAt}
-              /> */}
-          {/* ))} */}
-        </Row>
+              />
+          ))}
+        </Row> */}
       </div>
     </Row>
   </div>
 );
 
-export default CategoryPage;
+export default withRouter(CategoryPage);
