@@ -17,7 +17,7 @@ const Footer = () => (
     <div>
       <p className="footer__credits">
         <span>
-          News data API from
+          News API data from
           <a
             href="https://newsapi.org"
             target="_blank"
