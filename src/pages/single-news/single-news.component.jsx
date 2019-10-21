@@ -23,7 +23,6 @@ const SingleNews = ({ singleHeadline, isFetching }) => (
   <div className="single-news">
     {singleHeadline ? (
       <Row gutter={[8, 16]}>
-        {console.log("here")}
         <Col
           className="single-news__image-column"
           key={1}

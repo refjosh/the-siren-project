@@ -1,5 +1,6 @@
 import { all, call, put, takeLatest, select } from "redux-saga/effects";
 import { selectTopHeadlines } from "./headline.selector";
+import { selectCategoriesHeadlines } from "../category/category.selector";
 
 import headlineTypes from "./headline.types";
 import {
@@ -46,21 +47,25 @@ export function* fetchTopHeadlines() {
   }
 }
 
+// FETCH SINGLE NEWS
 export function* fetchSingle({ payload: { title, category } }) {
-  let headlineCategory = yield null;
+  let headlinesArray = yield null;
   if (category === "top-headlines") {
-    headlineCategory = yield select(selectTopHeadlines);
+    headlinesArray = yield select(selectTopHeadlines);
   } else {
+    const moreCategories = yield select(selectCategoriesHeadlines);
+    headlinesArray = yield moreCategories.filter(
+      categories => categories.category.toLowerCase() === category.toLowerCase()
+    )[0].headlines;
   }
-  console.log(category);
-  // const headlineResult = yield headlineCategory.filter(
-  //   headline => headline.title.toLowerCase() === title.toLowerCase()
-  // );
-  // if (!headlineResult) {
-  //   return put(fetchSingleHeadlineFailure("Headline not found"));
-  // }
-  // const newHeadlineResult = headlineResult[0];
-  // yield put(fetchSingleHeadlineSuccess(newHeadlineResult));
+  const headlineResult = yield headlinesArray.filter(
+    headline => headline.title.toLowerCase() === title.toLowerCase()
+  );
+  if (!headlineResult) {
+    return put(fetchSingleHeadlineFailure("Headline not found"));
+  }
+  const newHeadlineResult = headlineResult[0];
+  yield put(fetchSingleHeadlineSuccess(newHeadlineResult));
 }
 
 export function* onFetchTopHeadlinesStart() {
