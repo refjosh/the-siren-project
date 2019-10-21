@@ -7,6 +7,7 @@ import { createStructuredSelector } from "reselect";
 import "antd/dist/antd.css";
 import { Row, Col } from "antd";
 import WithSpinner from "../witth-spinner/with-spinner.component";
+import SingleHeadline from "../single-headline/single-headline.component";
 
 import { fetchSingleHeadlineStart } from "../../redux/headline/headline.action";
 
@@ -35,38 +36,13 @@ const CategoryPreview = ({
             {category.headlines
               .filter((item, idx) => idx < 3)
               .map((headline, index) => (
-                <Col
-                  key={index + 1}
-                  className="top-headlines-section__body--column"
-                  xs={24}
-                  sm={24}
-                  md={24}
-                  lg={8}
-                  xl={8}
-                >
-                  <div className="body">
-                    <h3
-                      className="body__header"
-                      onClick={() => (
-                        history.push(
-                          `${match.url}/${category.category}/${headline.title}`
-                        ),
-                        fetchSingleHeadline({
-                          headline,
-                          category
-                        })
-                      )}
-                    >
-                      {headline.title}
-                    </h3>
-                    <p className="body__content">{headline.description}</p>
-                    <div className="body__footer">
-                      <span>{headline.source.name}</span>
-                      <span className="solidus">&#47;</span>
-                      <span>{extractDate(headline.publishedAt)}</span>
-                    </div>
-                  </div>
-                </Col>
+                <SingleHeadline
+                  category={category.category}
+                  title={headline.title}
+                  description={headline.description}
+                  source={headline.source}
+                  publishedAt={headline.publishedAt}
+                />
               ))}
           </Row>
         </div>

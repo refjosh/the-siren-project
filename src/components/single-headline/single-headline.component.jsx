@@ -1,4 +1,4 @@
-import React from "redux";
+import React from "react";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { withRouter } from "react-router-dom";
@@ -12,7 +12,6 @@ import "./single-headline.styles.scss";
 import { fetchSingleHeadlineStart } from "../../redux/headline/headline.action";
 
 const SingleHeadline = ({
-  key,
   category,
   title,
   description,
@@ -23,7 +22,6 @@ const SingleHeadline = ({
   match
 }) => (
   <Col
-    key={key}
     className="top-headlines-section__body--column"
     xs={24}
     sm={24}
