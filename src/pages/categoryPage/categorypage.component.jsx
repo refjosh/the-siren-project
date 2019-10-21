@@ -36,7 +36,7 @@ const CategoryPage = ({ match, categoryHeadlines }) => {
                 .map((headline, index) => (
                   <SingleHeadline
                     key={index + 1}
-                    category={categoryHeadlines}
+                    category={match.params.category}
                     title={headline.title}
                     description={headline.description}
                     source={headline.source}

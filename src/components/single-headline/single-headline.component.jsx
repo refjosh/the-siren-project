@@ -34,7 +34,7 @@ const SingleHeadline = ({
       <h3
         className="body__header"
         onClick={() => (
-          history.push(`${match.url}/${category}/${title}`),
+          history.push(`/news/${category}/${title}`),
           fetchSingleHeadline({
             title,
             category

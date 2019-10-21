@@ -1,6 +1,9 @@
 import { all, call, put, takeLatest, select } from "redux-saga/effects";
 import { selectTopHeadlines } from "./headline.selector";
-import { selectCategoriesHeadlines } from "../category/category.selector";
+import {
+  selectCategoriesHeadlines,
+  selectSingleCategoryHeadlines
+} from "../category/category.selector";
 
 import headlineTypes from "./headline.types";
 import {
@@ -54,9 +57,12 @@ export function* fetchSingle({ payload: { title, category } }) {
     headlinesArray = yield select(selectTopHeadlines);
   } else {
     const moreCategories = yield select(selectCategoriesHeadlines);
-    headlinesArray = yield moreCategories.filter(
+    const headlines = yield moreCategories.filter(
       categories => categories.category.toLowerCase() === category.toLowerCase()
-    )[0].headlines;
+    );
+    if (headlines.length === 0) {
+      headlinesArray = yield select(selectSingleCategoryHeadlines);
+    }
   }
   const headlineResult = yield headlinesArray.filter(
     headline => headline.title.toLowerCase() === title.toLowerCase()
