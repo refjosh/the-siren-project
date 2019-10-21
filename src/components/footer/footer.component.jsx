@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import CategoryMenu from "../category-menu/category-menu.component";
 
@@ -8,7 +9,9 @@ import "./footer.styles.scss";
 const Footer = () => (
   <footer className="footer">
     <div className="footer__logo">
-      <Logo />
+      <Link to="/">
+        <Logo />
+      </Link>
     </div>
     <CategoryMenu />
     <div>

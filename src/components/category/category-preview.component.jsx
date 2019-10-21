@@ -5,7 +5,7 @@ import { withRouter, Link } from "react-router-dom";
 import { createStructuredSelector } from "reselect";
 
 import "antd/dist/antd.css";
-import { Row, Col } from "antd";
+import { Row } from "antd";
 import WithSpinner from "../witth-spinner/with-spinner.component";
 import SingleHeadline from "../single-headline/single-headline.component";
 
