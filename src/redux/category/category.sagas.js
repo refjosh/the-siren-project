@@ -54,9 +54,16 @@ export function* fetchCategoriesHeadlines() {
 
 export function* fetchSingleCategoryHeadlines({ payload: { category } }) {
   try {
-    const response = yield fetch(
-      `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${API_KEY}`
-    );
+    let response = null;
+    if (category === "top-headlines") {
+      response = yield fetch(
+        `https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}`
+      );
+    } else {
+      response = yield fetch(
+        `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${API_KEY}`
+      );
+    }
     const result = yield response.json();
     if (result.status === "ok") {
       yield put(fetchSingleCategoryHeadlinesSuccss(result.articles));

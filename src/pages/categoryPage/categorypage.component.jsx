@@ -4,7 +4,7 @@ import { compose } from "redux";
 import { withRouter } from "react-router-dom";
 import { createStructuredSelector } from "reselect";
 
-import { Row, Spin, Icon, Button } from "antd";
+import { Row, Spin, Icon } from "antd";
 import WithSpinner from "../../components/witth-spinner/with-spinner.component";
 
 import SingleHeadline from "../../components/single-headline/single-headline.component";
