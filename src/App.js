@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import HomePage from "./pages/homepage/homepage.component";
 import Header from "./components/header/header.component";
 import Footer from "./components/footer/footer.component";
@@ -30,6 +30,7 @@ class App extends React.Component {
         <Row>
           <Col className="responsive-box" span={16} offset={4}>
             <Switch>
+              <Redirect exact path="/" to="/news" />
               <Route exact path="/news" component={HomePage} />
               <Route exact path="/news/:category" component={CategoryPage} />
               <Route

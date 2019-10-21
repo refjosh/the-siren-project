@@ -62,7 +62,9 @@ export function* fetchSingleCategoryHeadlines({ payload: { category } }) {
       yield put(fetchSingleCategoryHeadlinesSuccss(result.articles));
     } else {
       yield put(
-        fetchCategoryHeadlinesFailure("There was an error fetching headlines")
+        fetchSingleCategoryHeadlinesFailure(
+          "There was an error fetching headlines"
+        )
       );
     }
   } catch (error) {

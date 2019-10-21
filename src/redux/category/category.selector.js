@@ -11,3 +11,13 @@ export const isFetchingHeadlines = createSelector(
   selectCategories,
   categories => categories.isFetchingHeadlines
 );
+
+export const selectSingleCategoryHeadlines = createSelector(
+  selectCategories,
+  headlines => headlines.singleCategoryHeadlines
+);
+
+export const selectIsFetchingSingleCategoryHeadlines = createSelector(
+  selectCategories,
+  isFetching => isFetching.isFetchingSingleCategoryHeadlines
+);

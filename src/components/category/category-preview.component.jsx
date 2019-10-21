@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { compose } from "redux";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import { createStructuredSelector } from "reselect";
 
 import "antd/dist/antd.css";
@@ -10,8 +10,8 @@ import WithSpinner from "../witth-spinner/with-spinner.component";
 import SingleHeadline from "../single-headline/single-headline.component";
 
 import { fetchSingleHeadlineStart } from "../../redux/headline/headline.action";
+import { fetchSingleCategoryHeadlinesStart } from "../../redux/category/category.actions";
 
-import { extractDate } from "../../redux/until";
 import {
   isFetchingHeadlines,
   selectCategoriesHeadlines
@@ -20,10 +20,8 @@ import {
 import "../top-headlines/top-headlines.styles.scss";
 
 const CategoryPreview = ({
-  match,
-  history,
   categoriesHeadlines,
-  fetchSingleHeadline
+  fetchSingleCategoryHeadlines
 }) => (
   <div>
     {categoriesHeadlines.map(category => (
@@ -37,6 +35,7 @@ const CategoryPreview = ({
               .filter((item, idx) => idx < 3)
               .map((headline, index) => (
                 <SingleHeadline
+                  key={index + 1}
                   category={category.category}
                   title={headline.title}
                   description={headline.description}
@@ -47,7 +46,13 @@ const CategoryPreview = ({
           </Row>
         </div>
         <div className="top-headlines-section__footer">
-          <span className="top-headlines-section__footer--link">view more</span>
+          <Link
+            className="top-headlines-section__footer--link"
+            to={`/news/${category.category}`}
+            onClick={() => fetchSingleCategoryHeadlines(category.category)}
+          >
+            view more
+          </Link>
           <span className="top-headlines-section__footer--arrow">&rarr;</span>
         </div>
       </section>
@@ -61,7 +66,9 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchSingleHeadline: item => dispatch(fetchSingleHeadlineStart(item))
+  fetchSingleHeadline: item => dispatch(fetchSingleHeadlineStart(item)),
+  fetchSingleCategoryHeadlines: category =>
+    dispatch(fetchSingleCategoryHeadlinesStart({ category }))
 });
 
 export default compose(

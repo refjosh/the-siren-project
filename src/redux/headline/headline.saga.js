@@ -45,11 +45,10 @@ export function* fetchTopHeadlines() {
   }
 }
 
-export function* fetchSingle({ payload: { headline, category } }) {
+export function* fetchSingle({ payload: { title, category } }) {
   const headlineCategory = yield category;
-  const title = yield headline.title.toLowerCase();
-  const headlineResult = yield headlineCategory.headlines.filter(
-    headline => headline.title.toLowerCase() === title
+  const headlineResult = yield headlineCategory.filter(
+    headline => headline.title.toLowerCase() === title.toLowerCase()
   );
   if (!headlineResult) {
     return put(fetchSingleHeadlineFailure("Headline not found"));

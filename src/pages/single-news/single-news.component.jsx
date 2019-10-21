@@ -16,13 +16,14 @@ import {
 import "./single-news.styels.scss";
 
 import "antd/dist/antd.css";
-import { Row, Col, Icon, Empty } from "antd";
+import { Row, Col, Icon, Empty, Spin } from "antd";
 import { extractDate, extractTime } from "../../redux/until";
 
 const SingleNews = ({ singleHeadline, isFetching }) => (
   <div className="single-news">
     {singleHeadline ? (
       <Row gutter={[8, 16]}>
+        {console.log("here")}
         <Col
           className="single-news__image-column"
           key={1}
@@ -43,7 +44,9 @@ const SingleNews = ({ singleHeadline, isFetching }) => (
           )}
         </Col>
       </Row>
-    ) : null}
+    ) : (
+      <Spin />
+    )}
     <Row gutter={[8, 16]}>
       <Col
         className="single-news__body"
@@ -91,7 +94,9 @@ const SingleNews = ({ singleHeadline, isFetching }) => (
               </span> */}
             </div>
           </div>
-        ) : null}
+        ) : (
+          <Spin></Spin>
+        )}
       </Col>
     </Row>
   </div>
