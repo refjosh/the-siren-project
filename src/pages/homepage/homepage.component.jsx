@@ -16,8 +16,6 @@ class HomePage extends React.Component {
     fetchTopHeadlinesStart();
   }
   render() {
-    const { match } = this.props;
-    console.log(match);
     return (
       <div className="homePage">
         <LandingSection />

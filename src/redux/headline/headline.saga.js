@@ -1,4 +1,5 @@
-import { all, call, put, takeLatest } from "redux-saga/effects";
+import { all, call, put, takeLatest, select } from "redux-saga/effects";
+import { selectTopHeadlines } from "./headline.selector";
 
 import headlineTypes from "./headline.types";
 import {
@@ -46,15 +47,20 @@ export function* fetchTopHeadlines() {
 }
 
 export function* fetchSingle({ payload: { title, category } }) {
-  const headlineCategory = yield category;
-  const headlineResult = yield headlineCategory.filter(
-    headline => headline.title.toLowerCase() === title.toLowerCase()
-  );
-  if (!headlineResult) {
-    return put(fetchSingleHeadlineFailure("Headline not found"));
+  let headlineCategory = yield null;
+  if (category === "top-headlines") {
+    headlineCategory = yield select(selectTopHeadlines);
+  } else {
   }
-  const newHeadlineResult = headlineResult[0];
-  yield put(fetchSingleHeadlineSuccess(newHeadlineResult));
+  console.log(category);
+  // const headlineResult = yield headlineCategory.filter(
+  //   headline => headline.title.toLowerCase() === title.toLowerCase()
+  // );
+  // if (!headlineResult) {
+  //   return put(fetchSingleHeadlineFailure("Headline not found"));
+  // }
+  // const newHeadlineResult = headlineResult[0];
+  // yield put(fetchSingleHeadlineSuccess(newHeadlineResult));
 }
 
 export function* onFetchTopHeadlinesStart() {

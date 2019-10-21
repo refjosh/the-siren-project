@@ -11,3 +11,8 @@ export const selectSingleHeadline = createSelector(
   selectHeadline,
   headline => headline.singleHeadline
 );
+
+export const selectTopHeadlines = createSelector(
+  selectHeadline,
+  headline => headline.topHeadlines
+);
