@@ -69,11 +69,12 @@ export function* fetchSingle({ payload: { title, category } }) {
   const headlineResult = yield headlinesArray.filter(
     headline => headline.title.toLowerCase() === title.toLowerCase()
   );
+  const headlineIndex = headlinesArray.indexOf(headlineResult[0]);
   if (!headlineResult) {
     return put(fetchSingleHeadlineFailure("Headline not found"));
   }
   const newHeadlineResult = headlineResult[0];
-  yield put(fetchSingleHeadlineSuccess(newHeadlineResult));
+  yield put(fetchSingleHeadlineSuccess({ newHeadlineResult, headlineIndex }));
 }
 
 export function* onFetchTopHeadlinesStart() {

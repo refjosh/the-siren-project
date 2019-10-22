@@ -82,15 +82,22 @@ const SingleNews = ({ singleHeadline, isFetching }) => (
               <p>{singleHeadline.description}</p>
             </div>
             <div className="single-news__footer">
-              {/* // TODO: Added prev and next button */}
-              {/* <span>
-                <Icon type="arrow-left" />
-                Prev
-              </span>
-              <span>
-                Next
-                <Icon type="arrow-right" />
-              </span> */}
+              <Row type="flex" justify="space-between">
+                <Col span={8} className="footer__column">
+                  <Icon type="left" className="footer__icon--left" />
+                  <div className="footer__text">
+                    Trump Cabinet Meeting Devolves Into 71 Minutes Of Grievances
+                    - Los Angeles Times
+                  </div>
+                </Col>
+                <Col span={8} className="footer__column">
+                  <div className="footer__text">
+                    Trump Cabinet Meeting Devolves Into 71 Minutes Of Grievances
+                    - Los Angeles Times
+                  </div>
+                  <Icon type="right" className="footer__icon--right" />
+                </Col>
+              </Row>
             </div>
           </div>
         ) : (

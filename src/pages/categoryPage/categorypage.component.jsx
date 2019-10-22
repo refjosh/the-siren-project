@@ -19,8 +19,10 @@ import "../../components/top-headlines/top-headlines.styles.scss";
 import "./categorypage.styles.scss";
 
 const CategoryPage = ({ match, categoryHeadlines }) => {
-  const headlinesCount =
-    categoryHeadlines.length !== undefined ? categoryHeadlines.length : 0;
+  let headlinesCount = 0;
+  if (categoryHeadlines !== undefined) {
+    headlinesCount = categoryHeadlines.length;
+  }
   const [loadNumber, setLoadNumber] = useState(6);
   const [loadLimit] = useState(headlinesCount);
 
