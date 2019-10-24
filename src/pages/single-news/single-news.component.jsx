@@ -83,14 +83,14 @@ const SingleNews = ({ singleHeadline, isFetching }) => (
             </div>
             <div className="single-news__footer">
               <Row type="flex" justify="space-between">
-                <Col span={8} className="footer__column">
+                <Col span={8} className="footer__column footer__column--left">
                   <Icon type="left" className="footer__icon--left" />
                   <div className="footer__text">
                     Trump Cabinet Meeting Devolves Into 71 Minutes Of Grievances
                     - Los Angeles Times
                   </div>
                 </Col>
-                <Col span={8} className="footer__column">
+                <Col span={8} className="footer__column footer__column--right">
                   <div className="footer__text">
                     Trump Cabinet Meeting Devolves Into 71 Minutes Of Grievances
                     - Los Angeles Times
