@@ -3,8 +3,9 @@ import headlineTypes from "./headline.types";
 const INITIAL_STATE = {
   topHeadlines: [],
   shuffledHeadlines: [],
-  singleHeadlineIndex: 0,
+  headlineIndex: 0,
   singleHeadline: null,
+  headlinesArray: [],
   isFetchingTopHeadlines: false,
   isFetchingShuffledHeadlines: false,
   isFetchingSingle: false,
@@ -13,6 +14,7 @@ const INITIAL_STATE = {
 
 const headlineReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
+    // FETCH TOP HEADLINES FOR HOME PAGE
     case headlineTypes.FETCH_TOP_HEADLINES_START:
       return {
         ...state,
@@ -34,6 +36,7 @@ const headlineReducer = (state = INITIAL_STATE, action) => {
         error: null
       };
 
+    // FETCH SINGLE HEADLINE FOR SINGLE NEWS COMPONENT
     case headlineTypes.FETCH_SINGLE_HEADLINE_START:
       return {
         ...state,
@@ -43,11 +46,13 @@ const headlineReducer = (state = INITIAL_STATE, action) => {
     case headlineTypes.FETCH_SINGLE_HEADLINE_SUCCESS:
       return {
         ...state,
-        singleHeadline: action.payload.newHeadlineResult,
-        singleHeadlineIndex: action.payload.headlineIndex,
+        singleHeadline: action.payload.singleHeadline,
+        headlineIndex: action.payload.headlineIndex,
+        headlinesArray: action.payload.headlinesArray,
         isFetchingSingle: false
       };
 
+    // ASSIGN ALL ERRORS HERE
     case headlineTypes.FETCH_SINGLE_HEADLINE_FAILURE:
     case headlineTypes.FETCH_TOP_HEADLINES_FAILURE:
       return {

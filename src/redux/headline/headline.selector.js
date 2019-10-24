@@ -7,12 +7,22 @@ export const selectIsFetchingSingle = createSelector(
   headline => headline.isFetchingSingle
 );
 
-export const selectSingleHeadline = createSelector(
+export const selectHeadlinesArray = createSelector(
   selectHeadline,
-  headline => headline.singleHeadline
+  headline => headline.headlinesArray
 );
 
 export const selectTopHeadlines = createSelector(
   selectHeadline,
   headline => headline.topHeadlines
+);
+
+export const selectSingleHeadline = createSelector(
+  selectHeadline,
+  headline => headline.singleHeadline
+);
+
+export const selectHeadlineIndex = createSelector(
+  selectHeadline,
+  headline => headline.headlineIndex
 );

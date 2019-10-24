@@ -1,5 +1,10 @@
 import { all, call, put, takeLatest, select } from "redux-saga/effects";
-import { selectTopHeadlines } from "./headline.selector";
+
+import {
+  selectTopHeadlines,
+  selectHeadlinesArray,
+  selectHeadlineIndex
+} from "./headline.selector";
 import {
   selectCategoriesHeadlines,
   selectSingleCategoryHeadlines
@@ -53,11 +58,13 @@ export function* fetchTopHeadlines() {
 // FETCH SINGLE NEWS
 export function* fetchSingle({ payload: { title, category } }) {
   let headlinesArray = yield null;
+  // Check if the category is top headlines
   if (category === "top-headlines") {
     headlinesArray = yield select(selectTopHeadlines);
   } else {
-    const moreCategories = yield select(selectCategoriesHeadlines);
-    const headlines = yield moreCategories.filter(
+    // Check if the category is among preferred category
+    const preferredCategories = yield select(selectCategoriesHeadlines);
+    const headlines = yield preferredCategories.filter(
       categories => categories.category.toLowerCase() === category.toLowerCase()
     );
     if (headlines.length === 0) {
@@ -73,8 +80,46 @@ export function* fetchSingle({ payload: { title, category } }) {
   if (!headlineResult) {
     return put(fetchSingleHeadlineFailure("Headline not found"));
   }
-  const newHeadlineResult = headlineResult[0];
-  yield put(fetchSingleHeadlineSuccess({ newHeadlineResult, headlineIndex }));
+  const singleHeadline = headlineResult[0];
+  yield put(
+    fetchSingleHeadlineSuccess({
+      singleHeadline,
+      headlineIndex,
+      headlinesArray
+    })
+  );
+}
+
+export function* fetchNextHeadline() {
+  // Get the headline index and headlines array
+  const singleHeadlineIndex = yield select(selectHeadlineIndex);
+  const headlinesArray = yield select(selectHeadlinesArray);
+  const headlineIndex = yield singleHeadlineIndex + 1;
+  const singleHeadline = headlinesArray[headlineIndex];
+  yield put(
+    fetchSingleHeadlineSuccess({
+      singleHeadline,
+      headlineIndex,
+      headlinesArray
+    })
+  );
+  return;
+}
+
+export function* fetchPreviousHeadline() {
+  // Get the headline index and headlines array
+  const singleHeadlineIndex = yield select(selectHeadlineIndex);
+  const headlinesArray = yield select(selectHeadlinesArray);
+  const headlineIndex = yield singleHeadlineIndex - 1;
+  const singleHeadline = headlinesArray[headlineIndex];
+  yield put(
+    fetchSingleHeadlineSuccess({
+      singleHeadline,
+      headlineIndex,
+      headlinesArray
+    })
+  );
+  return;
 }
 
 export function* onFetchTopHeadlinesStart() {
@@ -85,6 +130,18 @@ export function* onFetchSingleHeadlineStart() {
   yield takeLatest(headlineTypes.FETCH_SINGLE_HEADLINE_START, fetchSingle);
 }
 
+export function* onNextHeadline() {
+  yield takeLatest(headlineTypes.NEXT_HEADLINE, fetchNextHeadline);
+}
+export function* onPreviousHeadline() {
+  yield takeLatest(headlineTypes.PREVIOUS_HEADLINE, fetchPreviousHeadline);
+}
+
 export function* headlineSagas() {
-  yield all([call(onFetchTopHeadlinesStart), call(onFetchSingleHeadlineStart)]);
+  yield all([
+    call(onFetchTopHeadlinesStart),
+    call(onFetchSingleHeadlineStart),
+    call(onNextHeadline),
+    call(onPreviousHeadline)
+  ]);
 }

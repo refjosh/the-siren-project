@@ -33,3 +33,11 @@ export const fetchSingleHeadlineFailure = error => ({
   type: headlineTypes.FETCH_SINGLE_HEADLINE_FAILURE,
   payload: error
 });
+
+export const nextHeadline = () => ({
+  type: headlineTypes.NEXT_HEADLINE
+});
+
+export const previousHeadline = () => ({
+  type: headlineTypes.PREVIOUS_HEADLINE
+});
