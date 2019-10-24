@@ -29,33 +29,37 @@ const LandingSection = ({ topHeadlines }) => {
               draggable={true}
             >
               {topHeadlines
-                .filter((item, idx) => idx < 4)
-                .map((item, index) => (
-                  <LandingSlider
-                    key={index + 1}
-                    index={index + 1}
-                    title={item.title}
-                    imageUrl={item.urlToImage}
-                    category={item.source.name}
-                    date={item.publishedAt}
-                  />
-                ))}
+                ? topHeadlines
+                    .filter((item, idx) => idx < 4)
+                    .map((item, index) => (
+                      <LandingSlider
+                        key={index + 1}
+                        index={index + 1}
+                        title={item.title}
+                        imageUrl={item.urlToImage}
+                        category={item.source.name}
+                        date={item.publishedAt}
+                      />
+                    ))
+                : null}
             </Carousel>
           </div>
         </Col>
         <Col xs={24} sm={24} md={24} lg={9} xl={9}>
           <div className="landing-section__seconday-section">
             {topHeadlines
-              .filter((item, idx) => idx >= 4)
-              .map((headline, index) => (
-                <LandingThumb
-                  key={index}
-                  title={headline.title}
-                  imageUrl={headline.urlToImage}
-                  category={headline.source.name}
-                  date={extractDate(headline.publishedAt)}
-                />
-              ))}
+              ? topHeadlines
+                  .filter((item, idx) => idx >= 4)
+                  .map((headline, index) => (
+                    <LandingThumb
+                      key={index}
+                      title={headline.title}
+                      imageUrl={headline.urlToImage}
+                      category={headline.source.name}
+                      date={extractDate(headline.publishedAt)}
+                    />
+                  ))
+              : null}
           </div>
         </Col>
       </Row>

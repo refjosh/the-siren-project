@@ -20,17 +20,19 @@ const TopHeadlines = ({ topHeadlines, fetchSingleCategoryHeadlines }) => (
     <div className="top-headlines-section__body">
       <Row gutter={[8, 16]} className="top-headlines-section__body--row">
         {topHeadlines
-          .filter((item, idx) => idx < 3)
-          .map((headline, index) => (
-            <SingleHeadline
-              key={index + 1}
-              category={"top-headlines"}
-              title={headline.title}
-              description={headline.description}
-              source={headline.source}
-              publishedAt={headline.publishedAt}
-            />
-          ))}
+          ? topHeadlines
+              .filter((item, idx) => idx < 3)
+              .map((headline, index) => (
+                <SingleHeadline
+                  key={index + 1}
+                  category={"top-headlines"}
+                  title={headline.title}
+                  description={headline.description}
+                  source={headline.source}
+                  publishedAt={headline.publishedAt}
+                />
+              ))
+          : null}
       </Row>
     </div>
     <div className="top-headlines-section__footer">
