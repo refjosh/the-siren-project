@@ -20,13 +20,13 @@
   }
 
   &__footer {
-    font-size: 1.1rem;
+    font-size: 0.85rem;
     margin-top: 5rem;
 
     .footer {
       &__column {
-        padding: 0.45rem 1rem;
-        height: 3.45rem;
+        padding: 0.2rem 1rem;
+        height: 2.55rem;
         border: 1px solid #efefef;
         border-radius: 0.85rem;
         overflow: hidden;
@@ -66,7 +66,7 @@
           transition: all 0.5s;
           position: absolute;
           top: 0;
-          margin-top: 1.2rem;
+          margin-top: 0.8rem;
           right: 0.7rem;
         }
       }
