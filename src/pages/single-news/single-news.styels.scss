@@ -44,7 +44,7 @@
         &:hover,
         &:active {
           cursor: pointer;
-          box-shadow: 0 0.5rem 0.5rem rgba(#585858, 0.5);
+          box-shadow: 0 12px 24px rgba(#585858, 0.06);
           transform: translateX(-3px) translateY(-3px);
           color: #f78181;
           .footer__icon--left {
