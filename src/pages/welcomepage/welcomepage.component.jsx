@@ -1,8 +1,14 @@
 import React from "react";
+import { connect } from "react-redux";
 
 import CountriesList from "../../localStore/countriesList";
 import CATEGORIES from "../../localStore/CATEGORIES";
 import { ReactComponent as Logo } from "../../assets/logos/siren-logo.svg";
+// ACTIONS
+import {
+  setUserCountry,
+  setUserPreferredCategories
+} from "../../redux/user/user.action";
 
 // Import components
 import { Select } from "antd";
@@ -10,42 +16,66 @@ import { Select } from "antd";
 // Styles
 import "antd/dist/antd.css";
 import "./welcomepage.styles.scss";
-
 const { Option } = Select;
 
 class WelcomePage extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       countries: CountriesList,
       categories: CATEGORIES,
       disabledCountry: false,
       disabledCategory: false,
-      disabledButton: true
+      disabledButton: true,
+      selectedCountry: [],
+      selectedCategories: []
     };
   }
 
   handleCountry = event => {
-    const { disabledCategory } = this.state;
+    const { disabledCategory, countries } = this.state;
     if (event.length === 1) {
       this.setState({ disabledCountry: true });
       if (disabledCategory) this.setState({ disabledButton: false });
-      
     }
+    this.setState({ selectedCountry: event });
   };
 
   handleCategory = event => {
     const { disabledCountry } = this.state;
+
     if (event.length === 3) {
       this.setState({ disabledCategory: true });
       if (disabledCountry) this.setState({ disabledButton: false });
     }
+    this.setState({ selectedCategories: event });
   };
 
-  resetSelections = () => {};
+  resetSelections = () => {
+    this.setState({
+      selectedCategories: [],
+      selectedCountry: [],
+      disabledButton: true,
+      disabledCategory: false,
+      disabledCountry: false
+    });
+  };
 
   handleSubmit = event => {
     event.preventDefault();
+    const { setCountry, setPreferredCategories } = this.props;
+    const { countries, selectedCountry, selectedCategories } = this.state;
+    //  GET SHORT NAME FOR COUNTRY AND SET IT
+    try {
+      const filteredCountry = countries.filter(
+        country => country.name === selectedCountry[0]
+      );
+      const shortName = filteredCountry[0].shortName.toLowerCase();
+      setCountry(shortName);
+      setPreferredCategories(selectedCategories);
+    } catch (error) {
+      console.log("Can't set user country or categories");
+    }
   };
 
   render() {
@@ -54,7 +84,9 @@ class WelcomePage extends React.Component {
       categories,
       disabledCountry,
       disabledCategory,
-      disabledButton
+      disabledButton,
+      selectedCountry,
+      selectedCategories
     } = this.state;
     return (
       <div className="welcome-page">
@@ -64,6 +96,7 @@ class WelcomePage extends React.Component {
         <form onSubmit={this.handleSubmit}>
           <div className="select-country">
             <Select
+              value={selectedCountry}
               mode="multiple"
               style={{ width: "100%" }}
               placeholder="Select one country"
@@ -87,6 +120,7 @@ class WelcomePage extends React.Component {
           </div>
           <div className="select-categories">
             <Select
+              value={selectedCategories}
               mode="multiple"
               style={{ width: "100%" }}
               placeholder="Select 3 preferred categories"
@@ -106,14 +140,10 @@ class WelcomePage extends React.Component {
             </Select>
           </div>
           <div className="continue-box">
-            <button type="reset">
+            <button type="reset" onClick={() => this.resetSelections()}>
               <span>Rest</span>
             </button>
-            <button
-              disabled={disabledButton}
-              type="button"
-              onClick={() => console.log("click")}
-            >
+            <button disabled={disabledButton} type="submit">
               <span>Continue</span>
               <span className="button-arrow">&rarr;</span>
             </button>
@@ -124,4 +154,13 @@ class WelcomePage extends React.Component {
   }
 }
 
-export default WelcomePage;
+const mapDispatchToProps = dispatch => ({
+  setCountry: country => dispatch(setUserCountry(country)),
+  setPreferredCategories: categories =>
+    dispatch(setUserPreferredCategories(categories))
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(WelcomePage);
