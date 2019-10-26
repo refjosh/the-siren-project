@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 import CountriesList from "../../localStore/countriesList";
 import CATEGORIES from "../../localStore/CATEGORIES";
@@ -9,6 +10,11 @@ import {
   setUserCountry,
   setUserPreferredCategories
 } from "../../redux/user/user.action";
+
+import {
+  fetchCategoriesStart,
+  fetchCategoryHeadlinesStart
+} from "../../redux/category/category.actions";
 
 // Import components
 import { Select } from "antd";
@@ -33,7 +39,8 @@ class WelcomePage extends React.Component {
   }
 
   handleCountry = event => {
-    const { disabledCategory, countries } = this.state;
+    const { disabledCategory } = this.state;
+    //     DISABLE SELECT IS USER HAS SELECTED ONE OUNTRY
     if (event.length === 1) {
       this.setState({ disabledCountry: true });
       if (disabledCategory) this.setState({ disabledButton: false });
@@ -43,7 +50,7 @@ class WelcomePage extends React.Component {
 
   handleCategory = event => {
     const { disabledCountry } = this.state;
-
+    //     DISABLE SELECT IF USER HAS SELECTED UP TO 3 CATEGORIES
     if (event.length === 3) {
       this.setState({ disabledCategory: true });
       if (disabledCountry) this.setState({ disabledButton: false });
@@ -52,6 +59,7 @@ class WelcomePage extends React.Component {
   };
 
   resetSelections = () => {
+    //   RESETS FORM WHEN RESET BUTTON IS CLICKED
     this.setState({
       selectedCategories: [],
       selectedCountry: [],
@@ -63,7 +71,12 @@ class WelcomePage extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    const { setCountry, setPreferredCategories } = this.props;
+    const {
+      setCountry,
+      setPreferredCategories,
+      fetchCategories,
+      fetchCategoriesHeadlines
+    } = this.props;
     const { countries, selectedCountry, selectedCategories } = this.state;
     //  GET SHORT NAME FOR COUNTRY AND SET IT
     try {
@@ -76,6 +89,8 @@ class WelcomePage extends React.Component {
     } catch (error) {
       console.log("Can't set user country or categories");
     }
+    fetchCategories();
+    fetchCategoriesHeadlines();
   };
 
   render() {
@@ -140,13 +155,23 @@ class WelcomePage extends React.Component {
             </Select>
           </div>
           <div className="continue-box">
-            <button type="reset" onClick={() => this.resetSelections()}>
+            <button
+              className="reset-button"
+              type="reset"
+              onClick={() => this.resetSelections()}
+            >
               <span>Rest</span>
             </button>
-            <button disabled={disabledButton} type="submit">
-              <span>Continue</span>
-              <span className="button-arrow">&rarr;</span>
-            </button>
+            <Link to="/news">
+              <button
+                className="continue-button"
+                disabled={disabledButton}
+                type="submit"
+              >
+                <span>Continue</span>
+                <span className="button-arrow">&rarr;</span>
+              </button>
+            </Link>
           </div>
         </form>
       </div>
@@ -157,7 +182,9 @@ class WelcomePage extends React.Component {
 const mapDispatchToProps = dispatch => ({
   setCountry: country => dispatch(setUserCountry(country)),
   setPreferredCategories: categories =>
-    dispatch(setUserPreferredCategories(categories))
+    dispatch(setUserPreferredCategories(categories)),
+  fetchCategories: () => dispatch(fetchCategoriesStart()),
+  fetchCategoriesHeadlines: () => dispatch(fetchCategoryHeadlinesStart())
 });
 
 export default connect(
