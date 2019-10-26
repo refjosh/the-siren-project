@@ -1,7 +1,7 @@
 import React from "react";
 
-import countryHandler from "countrycitystatejson";
-import CountriesShortName from "../../localStore/countriesShortName";
+import CountriesList from "../../localStore/countriesList";
+import CATEGORIES from "../../localStore/CATEGORIES";
 import { ReactComponent as Logo } from "../../assets/logos/siren-logo.svg";
 
 // Import components
@@ -16,20 +16,7 @@ const { Option } = Select;
 class WelcomePage extends React.Component {
   constructor() {
     super();
-    this.state = { countriesShortName: CountriesShortName, countries: [] };
-  }
-  componentDidMount() {
-    const { countriesShortName, countries } = this.state;
-    const countriesList = [];
-    countriesShortName.map(short => {
-      const result = countryHandler.getCountryByShort(short.toUpperCase());
-      countriesList.push({
-        name: result.name,
-        shortName: short.toUpperCase(),
-        emoji: result.emoji
-      });
-      this.setState({ countries: countriesList });
-    });
+    this.state = { countries: CountriesList, categories: CATEGORIES };
   }
 
   handleChange = event => {
@@ -37,7 +24,7 @@ class WelcomePage extends React.Component {
   };
 
   render() {
-    const { countries } = this.state;
+    const { countries, categories } = this.state;
     console.log(countries);
     return (
       <div className="welcome-page">
@@ -53,8 +40,8 @@ class WelcomePage extends React.Component {
             optionLabelProp="label"
           >
             {countries.map(country => (
-              <Option value={country.shortName} label={country.name}>
-                <span role="img" aria-label={country.shortName}>
+              <Option value={country.name} label={country.name}>
+                <span role="img" aria-label={country.name}>
                   {country.emoji}
                 </span>
                 {country.name}
@@ -70,12 +57,11 @@ class WelcomePage extends React.Component {
             onChange={this.handleChange}
             optionLabelProp="label"
           >
-            <Option value="technology" label="Technology">
-              Technology
-            </Option>
-            <Option value="business" label="Business">
-              Business
-            </Option>
+            {categories.map(category => (
+              <Option value={category} label={category}>
+                {category.toUpperCase()}
+              </Option>
+            ))}
           </Select>
         </div>
         <div className="continue-box">

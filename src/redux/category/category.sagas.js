@@ -1,6 +1,6 @@
 import { all, call, put, takeLatest } from "redux-saga/effects";
 
-import CATEGORIES from "./CATEGORIES";
+import CATEGORIES from "../../localStore/CATEGORIES";
 import SELECTEDCATEGORIES from "./SELECTEDCATEGORIES";
 import categoryTypes from "./category.types";
 import {
