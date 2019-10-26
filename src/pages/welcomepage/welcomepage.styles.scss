@@ -1,0 +1,23 @@
+.logo-container {
+  margin-top: 10vh;
+  &__logo {
+    font-size: 100rem;
+    color: red;
+  }
+}
+
+.continue-box {
+  margin-top: 2rem;
+  font-size: 1.2rem;
+}
+
+.button-arrow {
+  color: #f78181;
+  transition: all 0.5s;
+  &:hover,
+  &:active {
+    color: #f78181;
+    cursor: pointer;
+    padding-left: 0.5rem;
+  }
+}
