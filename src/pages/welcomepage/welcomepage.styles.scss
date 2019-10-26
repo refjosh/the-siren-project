@@ -1,8 +1,11 @@
+.welcome-page {
+  margin: auto;
+}
+
 .logo-container {
   margin-top: 10vh;
   &__logo {
     font-size: 100rem;
-    color: red;
   }
 }
 
@@ -11,13 +14,40 @@
   font-size: 1.2rem;
 }
 
-.button-arrow {
-  color: #f78181;
-  transition: all 0.5s;
-  &:hover,
-  &:active {
-    color: #f78181;
-    cursor: pointer;
-    padding-left: 0.5rem;
+.select-country {
+  margin: 10vh auto;
+}
+
+.select-categories {
+  margin: 10vh auto;
+}
+
+.continue-box {
+  button {
+    background-color: rgba(#fff, 0.6);
+    border-radius: 5px;
+    padding: 0.8rem 3rem;
+    outline: none;
+    border: 1px solid #f78181;
+    color: #643d40;
+    transition: all 0.5s;
+    .button-arrow {
+      color: #643d40;
+      transition: all 0.5s;
+      position: absolute;
+    }
+    &:disabled {
+      opacity: 0.2;
+    }
+    &:hover:enabled,
+    &:active:enabled {
+      cursor: pointer;
+      color: #f78181;
+      .button-arrow {
+        color: #f78181;
+        cursor: pointer;
+        transform: translateX(8px);
+      }
+    }
   }
 }

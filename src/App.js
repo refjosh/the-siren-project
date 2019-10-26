@@ -29,7 +29,6 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        {/* <Header /> */}
         <Route path="/news" component={Header} />
         <Switch>
           <Row>
@@ -46,7 +45,6 @@ class App extends React.Component {
           </Row>
         </Switch>
         <Route path="/news" component={Footer} />
-        {/* <Footer /> */}
       </div>
     );
   }

@@ -4,16 +4,18 @@ import storage from "redux-persist/lib/storage/session";
 
 import categoryReducer from "./category/category.reducer";
 import headlineReducer from "./headline/headline.reducer";
+import userReducer from "./user/user.reducer";
 
 const persistConfig = {
   key: "root",
   storage: storage,
-  whitelist: ["headline", "category"]
+  whitelist: ["headline", "category", "user"]
 };
 
 const rootReducer = combineReducers({
   category: categoryReducer,
-  headline: headlineReducer
+  headline: headlineReducer,
+  user: userReducer
 });
 
 export default persistReducer(persistConfig, rootReducer);
