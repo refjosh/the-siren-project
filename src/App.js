@@ -34,7 +34,6 @@ class App extends React.Component {
   }
   render() {
     const { userCountry, userPreferredCategories } = this.props;
-    console.log(!!userCountry & !!userPreferredCategories);
     return (
       <div className="App">
         <Route path="/news" component={Header} />

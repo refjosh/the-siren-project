@@ -1,4 +1,9 @@
 .header {
   margin: 1rem;
   padding: 1.5rem 0.5rem 0.8rem;
+  &__country {
+    position: absolute;
+    right: 2rem;
+    top: 2rem;
+  }
 }

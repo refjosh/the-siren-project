@@ -84,8 +84,8 @@ class WelcomePage extends React.Component {
       const filteredCountry = countries.filter(
         country => country.name === selectedCountry[0]
       );
-      const shortName = filteredCountry[0].shortName.toLowerCase();
-      setCountry(shortName);
+      const country = filteredCountry[0];
+      setCountry(country);
       setPreferredCategories(selectedCategories);
     } catch (error) {
       console.log("Can't set user country or categories");
