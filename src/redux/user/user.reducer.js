@@ -10,7 +10,8 @@ const userReducer = (state = INITIAL_STATE, action) => {
     case UserTypes.SET_COUNTRY:
       return {
         ...state,
-        userCountry: action.payload
+        userCountry: action.payload,
+        error: null
       };
 
     case UserTypes.SET_PREFERRED_CATEGORIES:

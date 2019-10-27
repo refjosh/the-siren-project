@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 import CountriesList from "../../localStore/countriesList";
 import CATEGORIES from "../../localStore/CATEGORIES";
@@ -75,7 +75,8 @@ class WelcomePage extends React.Component {
       setCountry,
       setPreferredCategories,
       fetchCategories,
-      fetchCategoriesHeadlines
+      fetchCategoriesHeadlines,
+      history
     } = this.props;
     const { countries, selectedCountry, selectedCategories } = this.state;
     //  GET SHORT NAME FOR COUNTRY AND SET IT
@@ -91,6 +92,7 @@ class WelcomePage extends React.Component {
     }
     fetchCategories();
     fetchCategoriesHeadlines();
+    return history.push("/news");
   };
 
   render() {
@@ -118,10 +120,10 @@ class WelcomePage extends React.Component {
               onChange={this.handleCountry}
               optionLabelProp="label"
             >
-              {countries.map(country => (
+              {countries.map((country, index) => (
                 <Option
                   disabled={disabledCountry}
-                  key={country.shortame}
+                  key={index}
                   value={country.name}
                   label={country.name}
                 >
@@ -142,10 +144,10 @@ class WelcomePage extends React.Component {
               onChange={this.handleCategory}
               optionLabelProp="label"
             >
-              {categories.map(category => (
+              {categories.map((category, index) => (
                 <Option
                   disabled={disabledCategory}
-                  key={category}
+                  key={index}
                   value={category}
                   label={category}
                 >
@@ -160,18 +162,16 @@ class WelcomePage extends React.Component {
               type="reset"
               onClick={() => this.resetSelections()}
             >
-              <span>Rest</span>
+              <span>Reset</span>
             </button>
-            <Link to="/news">
-              <button
-                className="continue-button"
-                disabled={disabledButton}
-                type="submit"
-              >
-                <span>Continue</span>
-                <span className="button-arrow">&rarr;</span>
-              </button>
-            </Link>
+            <button
+              className="continue-button"
+              disabled={disabledButton}
+              type="submit"
+            >
+              <span>Continue</span>
+              <span className="button-arrow">&rarr;</span>
+            </button>
           </div>
         </form>
       </div>
@@ -190,4 +190,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   null,
   mapDispatchToProps
-)(WelcomePage);
+)(withRouter(WelcomePage));
