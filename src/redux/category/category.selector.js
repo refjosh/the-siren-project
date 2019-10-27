@@ -21,3 +21,8 @@ export const selectIsFetchingSingleCategoryHeadlines = createSelector(
   selectCategories,
   isFetching => isFetching.isFetchingSingleCategoryHeadlines
 );
+
+export const selectCategoriesList = createSelector(
+  selectCategories,
+  category => category.categories
+);

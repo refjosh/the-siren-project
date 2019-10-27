@@ -92,7 +92,7 @@ class WelcomePage extends React.Component {
     }
     fetchCategories();
     fetchCategoriesHeadlines();
-    return history.push("/news");
+    return history.push(`/news/${selectedCountry[0].shortName.toLowerCase()}`);
   };
 
   render() {

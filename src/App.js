@@ -34,6 +34,7 @@ class App extends React.Component {
   }
   render() {
     const { userCountry, userPreferredCategories } = this.props;
+    const country = userCountry.shortName.toLowerCase();
     return (
       <div className="App">
         <Route path="/news" component={Header} />
@@ -45,21 +46,21 @@ class App extends React.Component {
                 path="/"
                 render={() =>
                   !!userCountry & !!userPreferredCategories ? (
-                    <Redirect to="/news" />
+                    <Redirect to={`/news/${country}`} />
                   ) : (
                     <WelcomePage />
                   )
                 }
               />
+              <Route exact path={`/news/${country}`} component={HomePage} />
               <Route
                 exact
-                path={`/news/${userCountry.shortName.toLowerCase()}`}
-                component={HomePage}
+                path={`/news/${country}/:category`}
+                component={CategoryPage}
               />
-              <Route exact path="/news/:category" component={CategoryPage} />
               <Route
                 exact
-                path="/news/:category/:title"
+                path={`/news/${country}:category/:title`}
                 component={SingleNews}
               />
             </Switch>

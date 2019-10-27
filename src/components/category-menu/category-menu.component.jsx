@@ -2,6 +2,10 @@ import React from "react";
 import { compose } from "redux";
 import { withRouter, NavLink } from "react-router-dom";
 import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
+
+import { selectCategoriesList } from "../../redux/category/category.selector";
+import { selectUserCountry } from "../../redux/user/user.selector";
 
 import { fetchSingleCategoryHeadlinesStart } from "../../redux/category/category.actions";
 
@@ -9,6 +13,7 @@ import "./category-menu.styles.scss";
 
 const CategoryMenu = ({
   categories,
+  userCountry,
   isHeader,
   fetchSingleCategoryHeadlines
 }) => (
@@ -18,7 +23,7 @@ const CategoryMenu = ({
         ? categories.map(category => (
             <li className="category__menu--list" key={category}>
               <NavLink
-                to={`/news/${category}`}
+                to={`/news/${userCountry.shortName.toLowerCase()}/${category}`}
                 onClick={() => fetchSingleCategoryHeadlines({ category })}
                 className={`category__menu--link ${
                   isHeader ? `isHeader` : `isFooter`
@@ -33,8 +38,9 @@ const CategoryMenu = ({
   </div>
 );
 
-const mapStateToProps = ({ category }) => ({
-  categories: category.categories
+const mapStateToProps = createStructuredSelector({
+  categories: selectCategoriesList,
+  userCountry: selectUserCountry
 });
 
 const mapDispatchToProps = dispatch => ({
