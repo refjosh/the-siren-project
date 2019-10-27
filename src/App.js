@@ -51,7 +51,11 @@ class App extends React.Component {
                   )
                 }
               />
-              <Route exact path="/news" component={HomePage} />
+              <Route
+                exact
+                path={`/news/${userCountry.shortName.toLowerCase()}`}
+                component={HomePage}
+              />
               <Route exact path="/news/:category" component={CategoryPage} />
               <Route
                 exact
