@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { withRouter } from "react-router-dom";
@@ -14,17 +14,29 @@ import {
   selectIsFetchingSingleCategoryHeadlines
 } from "../../redux/category/category.selector";
 
+import { fetchSingleCategoryHeadlinesStart } from "../../redux/category/category.actions";
+
 import "antd/dist/antd.css";
 import "../../components/top-headlines/top-headlines.styles.scss";
 import "./categorypage.styles.scss";
 
-const CategoryPage = ({ match, categoryHeadlines }) => {
+const CategoryPage = ({
+  match,
+  categoryHeadlines,
+  fetchSingleCategoryHeadlines
+}) => {
+  const checkCategory = match.params.category;
+  // const [category, setCategory] = useState(fetchSingleCategoryHeadlines)
   let headlinesCount = 0;
-  if (categoryHeadlines !== undefined) {
-    headlinesCount = categoryHeadlines.length;
-  }
+  // if (categoryHeadlines !== null) {
+  //   headlinesCount = categoryHeadlines.length;
+  // }
   const [loadNumber, setLoadNumber] = useState(6);
   const [loadLimit] = useState(headlinesCount);
+
+  useEffect(() => {
+    fetchSingleCategoryHeadlines(checkCategory)
+  }, []);
 
   return (
     <div className="category-page">
@@ -71,8 +83,15 @@ const mapStateToProps = createStructuredSelector({
   categoryHeadlines: selectSingleCategoryHeadlines
 });
 
+const mapDispatchToProps = dispatch => ({
+  fetchSingleCategoryHeadlines: item =>
+    dispatch(fetchSingleCategoryHeadlinesStart(item))
+});
 export default compose(
-  connect(mapStateToProps),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  ),
   withRouter,
   WithSpinner
 )(CategoryPage);

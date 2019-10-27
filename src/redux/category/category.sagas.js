@@ -1,7 +1,6 @@
-import { all, call, put, takeLatest } from "redux-saga/effects";
+import { all, call, put, takeLatest, select } from "redux-saga/effects";
 
 import CATEGORIES from "../../localStore/CATEGORIES";
-import SELECTEDCATEGORIES from "./SELECTEDCATEGORIES";
 import categoryTypes from "./category.types";
 import {
   fetchCategoriesSuccess,
@@ -11,11 +10,13 @@ import {
   fetchSingleCategoryHeadlinesSuccss,
   fetchSingleCategoryHeadlinesFailure
 } from "./category.actions";
+
+import { selectUserPreferredCategories } from "../user/user.selector";
 const API_KEY = "5871814cd94a40fa9bca75cce204c2cd";
 
 export function* fetchCategories() {
   const categories = yield CATEGORIES;
-  const selectedCategories = yield SELECTEDCATEGORIES;
+  const selectedCategories = yield select(selectUserPreferredCategories);
   if ((categories & selectedCategories) !== null) {
     yield put(fetchCategoriesSuccess({ categories, selectedCategories }));
   } else {
@@ -44,39 +45,41 @@ export function* runThrough(categories) {
 }
 
 export function* fetchCategoriesHeadlines() {
-  const selectedCategories = yield SELECTEDCATEGORIES;
+  const preferredCategories = yield select(selectUserPreferredCategories);
   try {
-    yield runThrough(selectedCategories);
+    yield runThrough(preferredCategories);
   } catch (error) {
     yield put(fetchCategoryHeadlinesFailure(error));
   }
 }
 
-export function* fetchSingleCategoryHeadlines({ payload: { category } }) {
-  try {
-    let response = null;
-    if (category === "top-headlines") {
-      response = yield fetch(
-        `https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}`
-      );
-    } else {
-      response = yield fetch(
-        `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${API_KEY}`
-      );
-    }
-    const result = yield response.json();
-    if (result.status === "ok") {
-      yield put(fetchSingleCategoryHeadlinesSuccss(result.articles));
-    } else {
-      yield put(
-        fetchSingleCategoryHeadlinesFailure(
-          "There was an error fetching headlines"
-        )
-      );
-    }
-  } catch (error) {
-    yield put(fetchCategoryHeadlinesFailure(error));
-  }
+export function* fetchSingleCategoryHeadlines({ payload }) {
+  yield console.log(payload);
+  // try {
+  //   let response = null;
+  //   if (category === "top-headlines") {
+  //     response = yield fetch(
+  //       `https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}`
+  //     );
+  //   } else {
+  //     response = yield fetch(
+  //       `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${API_KEY}`
+  //     );
+  //   }
+  //   const result = yield response.json();
+  //   if (result.status === "ok") {
+  //     yield put(fetchSingleCategoryHeadlinesSuccss(result.articles));
+  //   } else {
+  //     yield put(
+  //       fetchSingleCategoryHeadlinesFailure(
+  //         "There was an error fetching headlines"
+  //       )
+  //     );
+  //   }
+  // } catch (error) {
+  //   yield put(fetchCategoryHeadlinesFailure(error));
+  // }
+  return;
 }
 
 // ON START
