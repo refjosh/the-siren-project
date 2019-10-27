@@ -3,19 +3,17 @@ import { connect } from "react-redux";
 import { compose } from "redux";
 import { withRouter } from "react-router-dom";
 import { createStructuredSelector } from "reselect";
-
+// COMPONENTS
 import { Row, Spin, Icon } from "antd";
-import WithSpinner from "../../components/witth-spinner/with-spinner.component";
-
 import SingleHeadline from "../../components/single-headline/single-headline.component";
-
+// STATES FROM SELECTOR
 import {
   selectSingleCategoryHeadlines,
   selectIsFetchingSingleCategoryHeadlines
 } from "../../redux/category/category.selector";
-
+// ACTIONS
 import { fetchSingleCategoryHeadlinesStart } from "../../redux/category/category.actions";
-
+// STYLES
 import "antd/dist/antd.css";
 import "../../components/top-headlines/top-headlines.styles.scss";
 import "./categorypage.styles.scss";
@@ -26,17 +24,17 @@ const CategoryPage = ({
   fetchSingleCategoryHeadlines
 }) => {
   const checkCategory = match.params.category;
-  // const [category, setCategory] = useState(fetchSingleCategoryHeadlines)
-  let headlinesCount = 0;
-  // if (categoryHeadlines !== null) {
-  //   headlinesCount = categoryHeadlines.length;
-  // }
   const [loadNumber, setLoadNumber] = useState(6);
-  const [loadLimit] = useState(headlinesCount);
 
   useEffect(() => {
-    fetchSingleCategoryHeadlines(checkCategory)
-  }, []);
+    fetchSingleCategoryHeadlines(checkCategory);
+  }, [fetchSingleCategoryHeadlines, checkCategory]);
+
+  let headlinesCount = 0;
+
+  if ((categoryHeadlines !== null) & (categoryHeadlines !== undefined)) {
+    headlinesCount = categoryHeadlines.length;
+  }
 
   return (
     <div className="category-page">
@@ -62,7 +60,7 @@ const CategoryPage = ({
             )}
           </Row>
         </div>
-        {loadNumber >= loadLimit ? null : (
+        {loadNumber >= headlinesCount ? null : (
           <div className="category-page__footer">
             <button
               className="load-more"
@@ -92,6 +90,5 @@ export default compose(
     mapStateToProps,
     mapDispatchToProps
   ),
-  withRouter,
-  WithSpinner
+  withRouter
 )(CategoryPage);
