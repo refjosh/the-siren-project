@@ -34,7 +34,7 @@ class App extends React.Component {
   }
   render() {
     const { userCountry, userPreferredCategories } = this.props;
-    console.log(userCountry, userPreferredCategories);
+    console.log(!!userCountry & !!userPreferredCategories);
     return (
       <div className="App">
         <Route path="/news" component={Header} />
@@ -45,7 +45,7 @@ class App extends React.Component {
                 exact
                 path="/"
                 render={() =>
-                  userCountry & userPreferredCategories ? (
+                  !!userCountry & !!userPreferredCategories ? (
                     <Redirect to="/news" />
                   ) : (
                     <WelcomePage />
