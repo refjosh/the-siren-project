@@ -51,7 +51,7 @@ export function* fetchTopHeadlines() {
     const result = yield response.json();
     if (result.status === "ok") {
       const articles = yield result.articles;
-      yield shuffleHeadlines(articles);
+      // yield shuffleHeadlines(articles);
       yield put(fetchTopHeadlinesSuccess(articles));
     }
   } catch (error) {

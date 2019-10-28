@@ -14,6 +14,7 @@ import "antd/dist/antd.css";
 import "./landing-section.styles.scss";
 
 const LandingSection = ({ topHeadlines }) => {
+  const randomNumber = Math.floor(Math.random() * 3) + 1;
   return (
     <div className="landing-section">
       <Row gutter={[8, 16]}>
@@ -30,17 +31,22 @@ const LandingSection = ({ topHeadlines }) => {
             >
               {topHeadlines
                 ? topHeadlines
-                    .filter((item, idx) => idx < 4)
-                    .map((item, index) => (
-                      <LandingSlider
-                        key={index + 1}
-                        index={index + 1}
-                        title={item.title}
-                        imageUrl={item.urlToImage}
-                        category={item.source.name}
-                        date={item.publishedAt}
-                      />
-                    ))
+                    .filter((headline, idx) => idx < 4)
+                    .map((headline, index) => {
+                      const item = topHeadlines[index * randomNumber];
+                      return (
+                        <LandingSlider
+                          index={index * randomNumber}
+                          key={index + 1}
+                          slideIndex={index + 1}
+                          title={item.title}
+                          imageUrl={item.urlToImage}
+                          source={item.source.name}
+                          date={item.publishedAt}
+                          category={"top-headlines"}
+                        />
+                      );
+                    })
                 : null}
             </Carousel>
           </div>
@@ -49,14 +55,16 @@ const LandingSection = ({ topHeadlines }) => {
           <div className="landing-section__seconday-section">
             {topHeadlines
               ? topHeadlines
-                  .filter((item, idx) => idx >= 4)
+                  .filter((item, idx) => (idx >= 4) & (idx < 6))
                   .map((headline, index) => (
                     <LandingThumb
+                      index={index + 4}
                       key={index}
                       title={headline.title}
                       imageUrl={headline.urlToImage}
-                      category={headline.source.name}
+                      source={headline.source.name}
                       date={extractDate(headline.publishedAt)}
+                      category={"top-headlines"}
                     />
                   ))
               : null}
@@ -68,8 +76,8 @@ const LandingSection = ({ topHeadlines }) => {
 };
 
 const mapStateToProps = ({ headline }) => ({
-  topHeadlines: headline.shuffledHeadlines,
-  isFetching: headline.isFetchingShuffledHeadlines
+  topHeadlines: headline.topHeadlines,
+  isFetching: headline.isFetchingTopHeadlines
 });
 
 export default compose(

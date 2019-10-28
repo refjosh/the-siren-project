@@ -30,6 +30,7 @@ const CategoryPreview = ({ categoriesHeadlines, userCountry }) => (
               .filter((item, idx) => idx < 3)
               .map((headline, index) => (
                 <SingleHeadline
+                  index={index}
                   key={index + 1}
                   category={category.category}
                   title={headline.title}
