@@ -60,7 +60,7 @@ class App extends React.Component {
               />
               <Route
                 exact
-                path={`/news/${country}:category/:title`}
+                path={`/news/${country}/:category/:index`}
                 component={SingleNews}
               />
             </Switch>

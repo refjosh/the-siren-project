@@ -31,6 +31,7 @@ const TopHeadlines = ({ topHeadlines, userCountry }) => (
               .filter((item, idx) => idx < 3)
               .map((headline, index) => (
                 <SingleHeadline
+                  index={index}
                   key={index + 1}
                   category={"top-headlines"}
                   title={headline.title}

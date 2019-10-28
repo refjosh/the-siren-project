@@ -1,5 +1,5 @@
 import { all, call, put, takeLatest, select } from "redux-saga/effects";
-
+// SELECTORS
 import {
   selectTopHeadlines,
   selectHeadlinesArray,
@@ -9,9 +9,10 @@ import {
   selectCategoriesHeadlines,
   selectSingleCategoryHeadlines
 } from "../category/category.selector";
-
+// TYPES
 import headlineTypes from "./headline.types";
 import UserTypes from "../user/user.types";
+// ACTIONS
 import {
   fetchTopHeadlinesSuccess,
   fetchShuffledHeadlinesSuccess,
@@ -21,7 +22,7 @@ import {
 } from "./headline.action";
 
 const API_KEY = "5871814cd94a40fa9bca75cce204c2cd";
-
+// SHUFFLE HEADLINES
 export function* shuffleHeadlines(headlines) {
   const filteredHeadlines = yield [];
   let randomNumbers = yield [];
@@ -38,7 +39,7 @@ export function* shuffleHeadlines(headlines) {
   }
   yield put(fetchShuffledHeadlinesSuccess(filteredHeadlines));
 }
-
+// FETCH TOP HEADLINES FOR HOME PAGE
 export function* fetchTopHeadlines() {
   const user = state => state.user;
   const selectUserCountry = yield select(user);
@@ -60,7 +61,7 @@ export function* fetchTopHeadlines() {
 }
 
 // FETCH SINGLE NEWS
-export function* fetchSingle({ payload: { title, category } }) {
+export function* fetchSingle({ payload: { index, category } }) {
   let headlinesArray = yield null;
   // Check if the category is top headlines
   if (category === "top-headlines") {
@@ -78,12 +79,9 @@ export function* fetchSingle({ payload: { title, category } }) {
     }
   }
   const headlineResult = yield headlinesArray.filter(
-    headline => headline.title.toLowerCase() === title.toLowerCase()
+    (headline, headlineIndex) => headlineIndex === index
   );
-  const headlineIndex = headlinesArray.indexOf(headlineResult[0]);
-  if (!headlineResult) {
-    return put(fetchSingleHeadlineFailure("Headline not found"));
-  }
+  const headlineIndex = index;
   const singleHeadline = headlineResult[0];
   yield put(
     fetchSingleHeadlineSuccess({

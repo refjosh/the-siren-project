@@ -19,6 +19,8 @@ import {
   selectSingleHeadline
 } from "../../redux/headline/headline.selector";
 
+import { selectUserCountry } from "../../redux/user/user.selector";
+
 import "./single-news.styels.scss";
 
 import "antd/dist/antd.css";
@@ -32,7 +34,8 @@ const SingleNews = ({
   nextHeadline,
   previousHeadline,
   history,
-  match
+  match,
+  userCountry
 }) => {
   return (
     <div className="single-news">
@@ -111,7 +114,9 @@ const SingleNews = ({
                       onClick={() => (
                         previousHeadline(),
                         history.push(
-                          `/news/${match.params.category}/${headlinesArray[headlineIndex - 1].title}`
+                          `/news/${userCountry.shortName.toLowerCase()}/${
+                            match.params.category
+                          }/${headlineIndex - 1}`
                         )
                       )}
                     >
@@ -129,7 +134,9 @@ const SingleNews = ({
                       onClick={() => (
                         nextHeadline(),
                         history.push(
-                          `/news/${match.params.category}/${headlinesArray[headlineIndex + 1].title}`
+                          `/news/${userCountry.shortName.toLowerCase()}/${
+                            match.params.category
+                          }/${headlineIndex + 1}`
                         )
                       )}
                     >
@@ -156,7 +163,8 @@ const mapStateToProps = createStructuredSelector({
   categoriesHeadlines: selectCategoriesHeadlines,
   headlinesArray: selectHeadlinesArray,
   headlineIndex: selectHeadlineIndex,
-  singleHeadline: selectSingleHeadline
+  singleHeadline: selectSingleHeadline,
+  userCountry: selectUserCountry
 });
 
 const mapDispatchToProps = dispatch => ({
