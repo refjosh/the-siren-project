@@ -29,7 +29,8 @@ const Header = ({ userCountry, history, setCountry }) => {
     } catch (error) {
       console.log("Can't set user country or categories");
     }
-    return history.push(`/news/${event.toLowerCase()}`);
+    // return history.push(`/news/${event.toLowerCase()}`);
+    return history.push("/");
   };
   return (
     <header className="header">

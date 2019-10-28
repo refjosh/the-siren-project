@@ -5,6 +5,7 @@ import {
   selectHeadlinesArray,
   selectHeadlineIndex
 } from "./headline.selector";
+import { selectUserCountry } from "../user/user.selector";
 import {
   selectCategoriesHeadlines,
   selectSingleCategoryHeadlines
@@ -39,9 +40,12 @@ export function* shuffleHeadlines(headlines) {
 }
 
 export function* fetchTopHeadlines() {
+  const user = state => state.user;
+  const selectUserCountry = yield select(user);
+  const country = yield selectUserCountry.userCountry.shortName.toLowerCase();
   try {
     const response = yield fetch(
-      `https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}`
+      `https://newsapi.org/v2/top-headlines?country=${country}&apiKey=${API_KEY}`
     );
     const result = yield response.json();
     if (result.status === "ok") {
