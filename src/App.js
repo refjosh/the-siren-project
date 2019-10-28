@@ -1,15 +1,10 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import { connect } from "react-redux";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { createStructuredSelector } from "reselect";
 
-// IMPORT CONPONENTS
-import WelcomePage from "./pages/welcomepage/welcomepage.component";
-import HomePage from "./pages/homepage/homepage.component";
 import Header from "./components/header/header.component";
 import Footer from "./components/footer/footer.component";
-import SingleNews from "./pages/single-news/single-news.component";
-import CategoryPage from "./pages/categoryPage/categorypage.component";
 
 import {
   selectUserCountry,
@@ -26,6 +21,18 @@ import {
 
 import "./App.css";
 
+// LAZY LOAD COMPONENTS CONPONENTS
+const WelcomePage = lazy(() =>
+  import("./pages/welcomepage/welcomepage.component")
+);
+const HomePage = lazy(() => import("./pages/homepage/homepage.component"));
+const SingleNews = lazy(() =>
+  import("./pages/single-news/single-news.component")
+);
+const CategoryPage = lazy(() =>
+  import("./pages/categoryPage/categorypage.component")
+);
+
 class App extends React.Component {
   componentDidMount() {
     const { fetchCategories, fetchCategoriesHeadlines } = this.props;
@@ -38,34 +45,36 @@ class App extends React.Component {
     return (
       <div className="App">
         <Route path="/news" component={Header} />
-        <Row>
-          <Col className="responsive-box" span={16} offset={4}>
-            <Switch>
-              <Route
-                exact
-                path="/"
-                render={() =>
-                  !!userCountry & !!userPreferredCategories ? (
-                    <Redirect to={`/news/${country}`} />
-                  ) : (
-                    <WelcomePage />
-                  )
-                }
-              />
-              <Route exact path={`/news/${country}`} component={HomePage} />
-              <Route
-                exact
-                path={`/news/${country}/:category`}
-                component={CategoryPage}
-              />
-              <Route
-                exact
-                path={`/news/${country}/:category/:index`}
-                component={SingleNews}
-              />
-            </Switch>
-          </Col>
-        </Row>
+        <Suspense fallback={<div>...loading</div>}>
+          <Row>
+            <Col className="responsive-box" span={16} offset={4}>
+              <Switch>
+                <Route
+                  exact
+                  path="/"
+                  render={() =>
+                    !!userCountry & !!userPreferredCategories ? (
+                      <Redirect to={`/news/${country}`} />
+                    ) : (
+                      <WelcomePage />
+                    )
+                  }
+                />
+                <Route exact path={`/news/${country}`} component={HomePage} />
+                <Route
+                  exact
+                  path={`/news/${country}/:category`}
+                  component={CategoryPage}
+                />
+                <Route
+                  exact
+                  path={`/news/${country}/:category/:index`}
+                  component={SingleNews}
+                />
+              </Switch>
+            </Col>
+          </Row>
+        </Suspense>
         <Route path="/news" component={Footer} />
       </div>
     );

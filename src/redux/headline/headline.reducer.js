@@ -2,12 +2,10 @@ import headlineTypes from "./headline.types";
 
 const INITIAL_STATE = {
   topHeadlines: [],
-  shuffledHeadlines: [],
   headlineIndex: 0,
   singleHeadline: null,
   headlinesArray: [],
   isFetchingTopHeadlines: false,
-  isFetchingShuffledHeadlines: false,
   isFetchingSingle: false,
   error: null
 };
@@ -26,13 +24,6 @@ const headlineReducer = (state = INITIAL_STATE, action) => {
         ...state,
         topHeadlines: action.payload,
         isFetchingTopHeadlines: false,
-        error: null
-      };
-    case headlineTypes.FETCH_SHUFFLED_HEADLINES_SUCCESS:
-      return {
-        ...state,
-        shuffledHeadlines: action.payload,
-        isFetchingShuffledHeadlines: false,
         error: null
       };
 
