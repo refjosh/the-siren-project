@@ -47,6 +47,7 @@ const CategoryPage = ({
                 .filter((item, idx) => idx < loadNumber)
                 .map((headline, index) => (
                   <SingleHeadline
+                    index={index}
                     key={index + 1}
                     category={match.params.category}
                     title={headline.title}
