@@ -2,6 +2,7 @@ import { all, call, put, takeLatest, select } from "redux-saga/effects";
 
 import CATEGORIES from "../../localStore/CATEGORIES";
 import categoryTypes from "./category.types";
+import UserTypes from "../user/user.types";
 import {
   fetchCategoriesSuccess,
   fetchCategoriesFailure,
@@ -25,11 +26,14 @@ export function* fetchCategories() {
 }
 
 export function* runThrough(categories) {
+  const user = state => state.user;
+  const selectUserCountry = yield select(user);
+  const country = yield selectUserCountry.userCountry.shortName.toLowerCase();
   const newHeadlines = yield [];
   try {
     for (let i = 0; i < categories.length; i++) {
       const response = yield fetch(
-        `https://newsapi.org/v2/top-headlines?country=us&category=${categories[i]}&apiKey=${API_KEY}`
+        `https://newsapi.org/v2/top-headlines?country=${country}&category=${categories[i]}&apiKey=${API_KEY}`
       );
       const result = yield response.json();
       yield newHeadlines.push({
@@ -54,16 +58,20 @@ export function* fetchCategoriesHeadlines() {
 }
 
 export function* fetchSingleCategoryHeadlines({ payload }) {
+  const user = state => state.user;
+  const selectUserCountry = yield select(user);
+  const country = yield selectUserCountry.userCountry.shortName.toLowerCase();
   const category = yield payload;
+  console.log(payload);
   try {
     let response = null;
     if (category === "top-headlines") {
       response = yield fetch(
-        `https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}`
+        `https://newsapi.org/v2/top-headlines?country=${country}&apiKey=${API_KEY}`
       );
     } else {
       response = yield fetch(
-        `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${API_KEY}`
+        `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=${API_KEY}`
       );
     }
     const result = yield response.json();
@@ -86,15 +94,17 @@ export function* fetchSingleCategoryHeadlines({ payload }) {
 export function* onFetchCategories() {
   yield takeLatest(categoryTypes.FETCH_CATEGORIES_START, fetchCategories);
 }
-
+// FETCH HEADLINES FOR PERFERRED CATEGORIES FOR HOME PAGE
 export function* onFetchCategoriesHeadlines() {
+  yield takeLatest(UserTypes.SET_COUNTRY, fetchCategoriesHeadlines);
   yield takeLatest(
     categoryTypes.FETCH_CATEGORY_HEADLINES_START,
     fetchCategoriesHeadlines
   );
 }
-
+// FETCH HEADLINES FOR SINGLE CATEGORY FOR CATEGORY PAGE
 export function* onFetchSingleCategoryHeadlines() {
+  yield takeLatest(UserTypes.SET_COUNTRY, fetchSingleCategoryHeadlines);
   yield takeLatest(
     categoryTypes.FETCH_SINGLE_CATEGORY_HEADLINES_START,
     fetchSingleCategoryHeadlines

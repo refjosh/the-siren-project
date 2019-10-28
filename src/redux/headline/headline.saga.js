@@ -5,13 +5,13 @@ import {
   selectHeadlinesArray,
   selectHeadlineIndex
 } from "./headline.selector";
-import { selectUserCountry } from "../user/user.selector";
 import {
   selectCategoriesHeadlines,
   selectSingleCategoryHeadlines
 } from "../category/category.selector";
 
 import headlineTypes from "./headline.types";
+import UserTypes from "../user/user.types";
 import {
   fetchTopHeadlinesSuccess,
   fetchShuffledHeadlinesSuccess,
@@ -127,6 +127,7 @@ export function* fetchPreviousHeadline() {
 }
 
 export function* onFetchTopHeadlinesStart() {
+  yield takeLatest(UserTypes.SET_COUNTRY, fetchTopHeadlines);
   yield takeLatest(headlineTypes.FETCH_TOP_HEADLINES_START, fetchTopHeadlines);
 }
 
