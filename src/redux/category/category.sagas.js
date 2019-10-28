@@ -62,7 +62,6 @@ export function* fetchSingleCategoryHeadlines({ payload }) {
   const selectUserCountry = yield select(user);
   const country = yield selectUserCountry.userCountry.shortName.toLowerCase();
   const category = yield payload;
-  console.log(payload);
   try {
     let response = null;
     if (category === "top-headlines") {

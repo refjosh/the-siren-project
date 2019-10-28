@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { compose } from "redux";
+import { createStructuredSelector } from "reselect";
 import { Link } from "react-router-dom";
 
 import "antd/dist/antd.css";
@@ -10,9 +11,15 @@ import SingleHeadline from "../single-headline/single-headline.component";
 
 import { fetchSingleCategoryHeadlinesStart } from "../../redux/category/category.actions";
 
+import {
+  selectTopHeadlines,
+  selectisFetchingTopHeadlines
+} from "../../redux/headline/headline.selector";
+import { selectUserCountry } from "../../redux/user/user.selector";
+
 import "./top-headlines.styles.scss";
 
-const TopHeadlines = ({ topHeadlines, fetchSingleCategoryHeadlines }) => (
+const TopHeadlines = ({ topHeadlines, userCountry }) => (
   <section className="top-headlines-section">
     <div className="top-headlines-section__head">
       <h2 className="short--underline">Top Headlines</h2>
@@ -38,8 +45,7 @@ const TopHeadlines = ({ topHeadlines, fetchSingleCategoryHeadlines }) => (
     <div className="top-headlines-section__footer">
       <Link
         className="top-headlines-section__footer--link"
-        to={`/news/top-headlines`}
-        onClick={() => fetchSingleCategoryHeadlines("top-headlines")}
+        to={`/news/${userCountry.shortName.toLowerCase()}/top-headlines`}
       >
         view more
       </Link>
@@ -48,9 +54,10 @@ const TopHeadlines = ({ topHeadlines, fetchSingleCategoryHeadlines }) => (
   </section>
 );
 
-const mapStateToProps = ({ headline }) => ({
-  topHeadlines: headline.topHeadlines,
-  isFetching: headline.isFetchingTopHeadlines
+const mapStateToProps = createStructuredSelector({
+  topHeadlines: selectTopHeadlines,
+  isFetching: selectisFetchingTopHeadlines,
+  userCountry: selectUserCountry
 });
 
 const mapDispatchToProps = dispatch => ({

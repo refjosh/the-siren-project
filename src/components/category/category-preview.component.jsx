@@ -9,20 +9,15 @@ import { Row } from "antd";
 import WithSpinner from "../witth-spinner/with-spinner.component";
 import SingleHeadline from "../single-headline/single-headline.component";
 
-import { fetchSingleHeadlineStart } from "../../redux/headline/headline.action";
-import { fetchSingleCategoryHeadlinesStart } from "../../redux/category/category.actions";
-
 import {
   isFetchingHeadlines,
   selectCategoriesHeadlines
 } from "../../redux/category/category.selector";
+import { selectUserCountry } from "../../redux/user/user.selector";
 
 import "../top-headlines/top-headlines.styles.scss";
 
-const CategoryPreview = ({
-  categoriesHeadlines,
-  fetchSingleCategoryHeadlines
-}) => (
+const CategoryPreview = ({ categoriesHeadlines, userCountry }) => (
   <div>
     {categoriesHeadlines.map(category => (
       <section className="top-headlines-section" key={category.id}>
@@ -48,8 +43,9 @@ const CategoryPreview = ({
         <div className="top-headlines-section__footer">
           <Link
             className="top-headlines-section__footer--link"
-            to={`/news/${category.category}`}
-            onClick={() => fetchSingleCategoryHeadlines(category.category)}
+            to={`/news/${userCountry.shortName.toLowerCase()}/${
+              category.category
+            }`}
           >
             view more
           </Link>
@@ -62,20 +58,12 @@ const CategoryPreview = ({
 
 const mapStateToProps = createStructuredSelector({
   categoriesHeadlines: selectCategoriesHeadlines,
-  isFetching: isFetchingHeadlines
-});
-
-const mapDispatchToProps = dispatch => ({
-  fetchSingleHeadline: item => dispatch(fetchSingleHeadlineStart(item)),
-  fetchSingleCategoryHeadlines: category =>
-    dispatch(fetchSingleCategoryHeadlinesStart({ category }))
+  isFetching: isFetchingHeadlines,
+  userCountry: selectUserCountry
 });
 
 export default compose(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  ),
+  connect(mapStateToProps),
   WithSpinner,
   withRouter
 )(CategoryPreview);
