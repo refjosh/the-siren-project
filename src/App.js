@@ -18,7 +18,6 @@ import {
   fetchCategoriesStart,
   fetchCategoryHeadlinesStart
 } from "./redux/category/category.actions";
-
 import "./App.css";
 
 // LAZY LOAD COMPONENTS CONPONENTS

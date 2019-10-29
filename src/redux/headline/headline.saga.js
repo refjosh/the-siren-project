@@ -1,4 +1,5 @@
 import { all, call, put, takeLatest, select } from "redux-saga/effects";
+
 // SELECTORS
 import {
   selectTopHeadlines,
@@ -19,7 +20,7 @@ import {
   fetchSingleHeadlineSuccess,
   fetchSingleHeadlineFailure
 } from "./headline.action";
-
+console.log(process.env.API_KEY);
 const API_KEY = "5871814cd94a40fa9bca75cce204c2cd";
 
 // FETCH TOP HEADLINES FOR HOME PAGE
