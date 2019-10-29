@@ -40,7 +40,7 @@ class App extends React.Component {
   }
   render() {
     const { userCountry, userPreferredCategories } = this.props;
-    const country = userCountry.shortName.toLowerCase();
+    const country = userCountry ? userCountry.shortName.toLowerCase() : null;
     return (
       <div className="App">
         <Route path="/news" component={Header} />
