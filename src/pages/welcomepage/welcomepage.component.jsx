@@ -116,7 +116,7 @@ class WelcomePage extends React.Component {
               value={selectedCountry}
               mode="multiple"
               style={{ width: "100%" }}
-              placeholder="Select one country"
+              placeholder="Select a Country"
               onChange={this.handleCountry}
               optionLabelProp="label"
             >
