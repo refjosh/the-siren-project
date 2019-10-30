@@ -111,14 +111,14 @@ const SingleNews = ({
                     <Col
                       span={8}
                       className="footer__column footer__column--left"
-                      onClick={() => (
-                        previousHeadline(),
+                      onClick={() => {
+                        previousHeadline();
                         history.push(
                           `/news/${userCountry.shortName.toLowerCase()}/${
                             match.params.category
                           }/${headlineIndex - 1}`
-                        )
-                      )}
+                        );
+                      }}
                     >
                       <Icon type="left" className="footer__icon--left" />
                       <div className="footer__text">
@@ -131,14 +131,14 @@ const SingleNews = ({
                       style={{ display: "inline", float: "right" }}
                       span={8}
                       className="footer__column footer__column--right"
-                      onClick={() => (
-                        nextHeadline(),
+                      onClick={() => {
+                        nextHeadline();
                         history.push(
                           `/news/${userCountry.shortName.toLowerCase()}/${
                             match.params.category
                           }/${headlineIndex + 1}`
-                        )
-                      )}
+                        );
+                      }}
                     >
                       <div className="footer__text">
                         {headlinesArray[headlineIndex + 1].title}

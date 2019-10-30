@@ -37,15 +37,15 @@ const SingleHeadline = ({
     <div className="body">
       <h3
         className="body__header"
-        onClick={() => (
+        onClick={() => {
           history.push(
             `/news/${userCountry.shortName.toLowerCase()}/${category}/${index}`
-          ),
+          );
           fetchSingleHeadline({
             index,
             category
-          })
-        )}
+          });
+        }}
       >
         {title}
       </h3>

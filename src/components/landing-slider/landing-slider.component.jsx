@@ -34,15 +34,15 @@ const LandingSlider = ({
       ) : null}
 
       <h3
-        onClick={() => (
+        onClick={() => {
           history.push(
             `/news/${userCountry.shortName.toLowerCase()}/${category}/${index}`
-          ),
+          );
           fetchSingleHeadline({
             index,
             category
-          })
-        )}
+          });
+        }}
         className="landing-slider__detail--title"
       >
         {title}

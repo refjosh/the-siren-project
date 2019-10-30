@@ -24,15 +24,15 @@ const LandingThumb = ({
     <img className="landing-thumb__image" src={imageUrl} alt={title} />
     <div className="landing-thumb__detail">
       <h3
-        onClick={() => (
+        onClick={() => {
           history.push(
             `/news/${userCountry.shortName.toLowerCase()}/${category}/${index}`
-          ),
+          );
           fetchSingleHeadline({
             index,
             category
-          })
-        )}
+          });
+        }}
         className="landing-thumb__detail--title"
       >
         {title}
