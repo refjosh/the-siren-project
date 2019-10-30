@@ -6,6 +6,7 @@
     &--list {
       display: inline-block;
       text-transform: capitalize;
+      line-height: 2;
 
       &:not(:last-child) {
         margin-right: 2rem;

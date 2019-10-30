@@ -34,7 +34,7 @@ const Header = ({
   setPreferredCategories,
   history
 }) => {
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState(userCountry.name);
   const [selectedCategories, setSelectedCategories] = useState(
