@@ -30,8 +30,8 @@ class WelcomePage extends React.Component {
     this.state = {
       countries: CountriesList,
       categories: CATEGORIES,
-      disabledCountry: false,
-      disabledCategory: false,
+      // disabledCountry: false,
+      // disabledCategory: false,
       disabledButton: true,
       selectedCountry: [],
       selectedCategories: []
@@ -39,22 +39,22 @@ class WelcomePage extends React.Component {
   }
 
   handleCountry = event => {
-    const { disabledCategory } = this.state;
-    //     DISABLE SELECT IS USER HAS SELECTED ONE OUNTRY
-    if (event.length === 1) {
-      this.setState({ disabledCountry: true });
-      if (disabledCategory) this.setState({ disabledButton: false });
+    const { selectedCategories } = this.state;
+    //     ENABLE CONTINUE BUTTON IS USER HAS SELECTED UP TO 3 OR MORE CATEGORIES
+    if (selectedCategories.length >= 3) {
+      this.setState({ disabledButton: false });
     }
     this.setState({ selectedCountry: event });
   };
 
   handleCategory = event => {
-    const { disabledCountry } = this.state;
-    //     DISABLE SELECT IF USER HAS SELECTED UP TO 3 CATEGORIES
-    if (event.length === 3) {
-      this.setState({ disabledCategory: true });
-      if (disabledCountry) this.setState({ disabledButton: false });
+    const { selectedCountry } = this.state;
+    //     ENABLE CONTINUE BUTTON IS USER HAS SELECTED UP TO 3 OR MORE CATEGORIES AND A COUNTRY
+    this.setState({ disabledButton: true });
+    if ((event.length >= 3) & (selectedCountry.length !== 0)) {
+      this.setState({ disabledButton: false });
     }
+
     this.setState({ selectedCategories: event });
   };
 
@@ -63,9 +63,7 @@ class WelcomePage extends React.Component {
     this.setState({
       selectedCategories: [],
       selectedCountry: [],
-      disabledButton: true,
-      disabledCategory: false,
-      disabledCountry: false
+      disabledButton: true
     });
   };
 
@@ -79,12 +77,14 @@ class WelcomePage extends React.Component {
       history
     } = this.props;
     const { countries, selectedCountry, selectedCategories } = this.state;
+    console.log(selectedCountry, selectedCategories);
     //  GET SHORT NAME FOR COUNTRY AND SET IT
+    let country = null;
     try {
       const filteredCountry = countries.filter(
-        country => country.name === selectedCountry[0]
+        country => country.name === selectedCountry
       );
-      const country = filteredCountry[0];
+      country = filteredCountry[0];
       setCountry(country);
       setPreferredCategories(selectedCategories);
     } catch (error) {
@@ -92,15 +92,13 @@ class WelcomePage extends React.Component {
     }
     fetchCategories();
     fetchCategoriesHeadlines();
-    return history.push(`/news/${selectedCountry[0].shortName.toLowerCase()}`);
+    return history.push(`/news/${country.shortName.toLowerCase()}`);
   };
 
   render() {
     const {
       countries,
       categories,
-      disabledCountry,
-      disabledCategory,
       disabledButton,
       selectedCountry,
       selectedCategories
@@ -114,19 +112,13 @@ class WelcomePage extends React.Component {
           <div className="select-country">
             <Select
               value={selectedCountry}
-              mode="multiple"
               style={{ width: "100%" }}
               placeholder="Select a Country"
               onChange={this.handleCountry}
               optionLabelProp="label"
             >
               {countries.map((country, index) => (
-                <Option
-                  disabled={disabledCountry}
-                  key={index}
-                  value={country.name}
-                  label={country.name}
-                >
+                <Option key={index} value={country.name} label={country.name}>
                   <span role="img" aria-label={country.name}>
                     {country.emoji}
                   </span>
@@ -140,16 +132,15 @@ class WelcomePage extends React.Component {
               value={selectedCategories}
               mode="multiple"
               style={{ width: "100%" }}
-              placeholder="Select 3 preferred categories"
+              placeholder="Select Three or More Categories of Interest"
               onChange={this.handleCategory}
               optionLabelProp="label"
             >
               {categories.map((category, index) => (
                 <Option
-                  disabled={disabledCategory}
                   key={index}
                   value={category}
-                  label={category}
+                  label={category.toUpperCase()}
                 >
                   {category.toUpperCase()}
                 </Option>
