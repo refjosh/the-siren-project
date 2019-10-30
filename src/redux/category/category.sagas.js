@@ -97,6 +97,10 @@ export function* onFetchCategories() {
 export function* onFetchCategoriesHeadlines() {
   yield takeLatest(UserTypes.SET_COUNTRY, fetchCategoriesHeadlines);
   yield takeLatest(
+    UserTypes.SET_PREFERRED_CATEGORIES,
+    fetchCategoriesHeadlines
+  );
+  yield takeLatest(
     categoryTypes.FETCH_CATEGORY_HEADLINES_START,
     fetchCategoriesHeadlines
   );

@@ -3,8 +3,9 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
 import CountriesList from "../../localStore/countriesList";
-import CATEGORIES from "../../localStore/CATEGORIES";
 import { ReactComponent as Logo } from "../../assets/logos/siren-logo.svg";
+// Import components
+import CountryAndCategories from "../../components/country-and-categories/country-and-categories.component";
 // ACTIONS
 import {
   setUserCountry,
@@ -16,22 +17,14 @@ import {
   fetchCategoryHeadlinesStart
 } from "../../redux/category/category.actions";
 
-// Import components
-import { Select } from "antd";
-
 // Styles
-import "antd/dist/antd.css";
 import "./welcomepage.styles.scss";
-const { Option } = Select;
 
 class WelcomePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       countries: CountriesList,
-      categories: CATEGORIES,
-      // disabledCountry: false,
-      // disabledCategory: false,
       disabledButton: true,
       selectedCountry: [],
       selectedCategories: []
@@ -66,7 +59,7 @@ class WelcomePage extends React.Component {
       disabledButton: true
     });
   };
-
+  // SUBMIT SELECTIONS
   handleSubmit = event => {
     event.preventDefault();
     const {
@@ -96,75 +89,36 @@ class WelcomePage extends React.Component {
   };
 
   render() {
-    const {
-      countries,
-      categories,
-      disabledButton,
-      selectedCountry,
-      selectedCategories
-    } = this.state;
+    const { disabledButton, selectedCountry, selectedCategories } = this.state;
     return (
       <div className="welcome-page">
         <div className="logo-container">
           <Logo className="logo-container__logo" />
         </div>
-        <form onSubmit={this.handleSubmit}>
-          <div className="select-country">
-            <Select
-              value={selectedCountry}
-              style={{ width: "100%" }}
-              placeholder="Select a Country"
-              onChange={this.handleCountry}
-              optionLabelProp="label"
-            >
-              {countries.map((country, index) => (
-                <Option key={index} value={country.name} label={country.name}>
-                  <span role="img" aria-label={country.name}>
-                    {country.emoji}
-                  </span>
-                  {country.name}
-                </Option>
-              ))}
-            </Select>
-          </div>
-          <div className="select-categories">
-            <Select
-              value={selectedCategories}
-              mode="multiple"
-              style={{ width: "100%" }}
-              placeholder="Select Three or More Categories of Interest"
-              onChange={this.handleCategory}
-              optionLabelProp="label"
-            >
-              {categories.map((category, index) => (
-                <Option
-                  key={index}
-                  value={category}
-                  label={category.toUpperCase()}
-                >
-                  {category.toUpperCase()}
-                </Option>
-              ))}
-            </Select>
-          </div>
-          <div className="continue-box">
-            <button
-              className="reset-button"
-              type="reset"
-              onClick={() => this.resetSelections()}
-            >
-              <span>Reset</span>
-            </button>
-            <button
-              className="continue-button"
-              disabled={disabledButton}
-              type="submit"
-            >
-              <span>Continue</span>
-              <span className="button-arrow">&rarr;</span>
-            </button>
-          </div>
-        </form>
+        <CountryAndCategories
+          selectedCountry={selectedCountry}
+          handleCountry={this.handleCountry}
+          selectedCategories={selectedCategories}
+          handleCategory={this.handleCategory}
+        />
+        <div className="continue-box">
+          <button
+            className="reset-button"
+            type="reset"
+            onClick={() => this.resetSelections()}
+          >
+            <span>Reset</span>
+          </button>
+          <button
+            className="continue-button"
+            disabled={disabledButton}
+            type="button"
+            onClick={() => this.handleSubmit()}
+          >
+            <span>Continue</span>
+            <span className="button-arrow">&rarr;</span>
+          </button>
+        </div>
       </div>
     );
   }
