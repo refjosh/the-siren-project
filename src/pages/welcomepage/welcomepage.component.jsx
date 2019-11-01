@@ -61,7 +61,6 @@ class WelcomePage extends React.Component {
   };
   // SUBMIT SELECTIONS
   handleSubmit = event => {
-    event.preventDefault();
     const {
       setCountry,
       setPreferredCategories,
