@@ -69,7 +69,6 @@ class WelcomePage extends React.Component {
       history
     } = this.props;
     const { countries, selectedCountry, selectedCategories } = this.state;
-    console.log(selectedCountry, selectedCategories);
     //  GET SHORT NAME FOR COUNTRY AND SET IT
     let country = null;
     try {
