@@ -21,7 +21,7 @@ import {
   fetchSingleHeadlineFailure
 } from "./headline.action";
 
-const API_KEY = "5871814cd94a40fa9bca75cce204c2cd";
+const API_KEY = process.env.REACT_APP_API_KEY;
 
 // FETCH TOP HEADLINES FOR HOME PAGE
 export function* fetchTopHeadlines() {

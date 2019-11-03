@@ -13,7 +13,7 @@ import {
 } from "./category.actions";
 
 import { selectUserPreferredCategories } from "../user/user.selector";
-const API_KEY = "5871814cd94a40fa9bca75cce204c2cd";
+const API_KEY = process.env.REACT_APP_API_KEY;
 
 export function* fetchCategories() {
   const categories = yield CATEGORIES;
