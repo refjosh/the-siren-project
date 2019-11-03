@@ -13,6 +13,7 @@ You will need to get your own API key from [newsapi.org](https://newsapi.org) Yo
 ### Step 1
 
 Create a `.env` file at the root folder
+
 Example
 
 ```
@@ -25,6 +26,7 @@ src
 ### Step 2
 
 Create a `REACT_APP_API_KEY` variable in your .env file and assign it with the generated api key
+
 Example
 
 ```.env
