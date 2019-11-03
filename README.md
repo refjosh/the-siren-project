@@ -29,5 +29,5 @@ $ npm start
 
 ## Acknowledgements
 
-- News Api from [News API](https://newsapi.org)
+- API from [News API](https://newsapi.org)
 - UI Design from [The Siren by Kulikov IIly](https://freebiesbug.com/sketch-freebies/the-siren/)
