@@ -48,7 +48,7 @@ REACT_APP_API_KEY=2323nlsjfslapikeysecret
 
 ### Step 4
 
-Run your the react app from the command line
+Run the react app from the command line
 
 ```bash
 $ npm start
