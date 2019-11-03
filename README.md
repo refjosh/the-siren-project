@@ -10,7 +10,20 @@ The siren project is a web app that enables a user get latest news headlines bas
 
 You will need to get your own API key from [newsapi.org](https://newsapi.org) You can sign up to get the developer api which is free but comes with limitations. The get the same result as the live preview, get the developer access.
 
+## Setup
+
+To run this project make sure you have generated your api key.
+
 ### Step 1
+
+```bash
+$ cd ../the-siren-project
+$ npm install
+```
+
+This will install all the packages needed for functionality.
+
+### Step 2
 
 Create a `.env` file at the root folder
 
@@ -23,7 +36,7 @@ src
 .gitignore
 ```
 
-### Step 2
+### Step 3
 
 Create a `REACT_APP_API_KEY` variable in your .env file and assign it with the generated api key
 
@@ -31,6 +44,14 @@ Example
 
 ```.env
 REACT_APP_API_KEY=2323nlsjfslapikeysecret
+```
+
+### Step 4
+
+Run your the react app from the command line
+
+```bash
+$ npm start
 ```
 
 ## Built With
@@ -48,16 +69,6 @@ Project is created with:
 - [Redux Persist](https://github.com/rt2zz/redux-persist)
 - [Reselect](https://github.com/reduxjs/reselect)
 - [Country City State Json](https://github.com/khkwan0/countryCityStateJson)
-
-## Setup
-
-To run this project
-
-```bash
-$ cd ../the-siren-project
-$ npm install
-$ npm start
-```
 
 ## Acknowledgements
 
