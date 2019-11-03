@@ -12,10 +12,12 @@ Project is created with:
 
 - [Html](https://developer.mozilla.org/en-US/docs/Web/HTML)
 - [Css](https://developer.mozilla.org/en-US/docs/Web/CSS)
+- [Ant Design](https://ant.design/docs/react/introduce)
 - [React js](https://reactjs.org)
 - [Redux](https://redux.js.org)
 - [Redux Saga](https://redux-saga.js.org)
-- [Ant Design](https://ant.design/docs/react/introduce)
+- [Redux Persist](https://github.com/rt2zz/redux-persist)
+- [Reselect](https://github.com/reduxjs/reselect)
 
 ## Setup
 
