@@ -38,7 +38,7 @@ src
 
 ### Step 3
 
-Create a `REACT_APP_API_KEY` variable in your .env file and assign it with the generated api key
+Create a `REACT_APP_API_KEY` variable in your .env file and assign it the generated api key
 
 Example
 
