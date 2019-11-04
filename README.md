@@ -25,7 +25,7 @@ This will install all the packages needed for functionality.
 
 ### Step 2
 
-Create a `.env` file at the root folder
+Create a `.env` file at the root folder of the app.
 
 Example
 
