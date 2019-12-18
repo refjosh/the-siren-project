@@ -1,6 +1,6 @@
 ## The Siren Project
 
-The siren project is a web app that enables a user get latest news headlines based on country, provided by user, and preferred categories. After providing this information, the user not confined to just a country or intial categories selected. The user can make these changes easily anytime and anywhere in the app.
+The siren project is a web app that enables a user to get the latest news headlines based on the country, provided by a user, and preferred categories. After providing this information, the user not confined to just a country or initial categories selected. The user can make these changes easily anytime and anywhere in the app.
 
 ### Preview
 
